@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
-
+const ROOT_URL = 'http://localhost:3090/';
 
 class Create extends Component {
 
@@ -33,9 +34,9 @@ class Create extends Component {
     e.preventDefault();
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date} = this.state;
 
-    axios.post('http://localhost:3090/employee', { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date  })
+    axios.post(ROOT_URL+'employee', { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date  })
       .then((result) => {
-        this.props.history.push("/")
+        this.props.history.push("/listing")
       });
   }
 
@@ -49,8 +50,7 @@ class Create extends Component {
               ADD Employee
             </h3>
           </div>
-          <div class="panel-body">
-            <h4><a href="/listing"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Employee List</a></h4>
+          <div class="panel-body">            
             <form onSubmit={this.onSubmit}>
               <div class="form-group">
                 <label for="isbn">Email:</label>

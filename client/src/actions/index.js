@@ -33,7 +33,7 @@ export function signinUser({ email, password }) {
 
         // - redirect to the appropriate route
         if(decoded_token_data.role == 'user') {
-          browserHistory.push('/protected_content');
+          browserHistory.push('/listing');
         }
         // - set admin flag if token indicates the user has admin privileges
         else if(decoded_token_data.role == 'admin') {

@@ -13,3 +13,13 @@
 .msg {
   color: #707B7C;
 }
+
+.container {    
+  width: 100%; 
+}
+
+.container-fluid {
+  top: 65px;
+  position: absolute;		
+  width: 98%;
+}	

@@ -18,8 +18,7 @@ export default class App extends Component {
   componentDidMount() {
     axios.get('/employee')
       .then(res => {
-        this.setState({ employee: res.data });
-        console.log(this.state.employee);
+        this.setState({ employee: res.data });        
       });
   }
   

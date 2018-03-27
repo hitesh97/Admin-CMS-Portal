@@ -22,7 +22,6 @@ import { SET_ADMIN_PRIVILEGES } from './actions/types';
 import jwt_decode from 'jwt-decode';
 import Edit from './components/Edit';
 import Create from './components/Create';
-import Show from './components/Show';
 import EmployeeListing from './components/EmployeeListing';
 
 
@@ -56,11 +55,10 @@ ReactDOM.render(
         <Route path="protected_content" component={RequireAuth(ProtectedContent)} />
         <Route path="admin_area" component={RequireAdmin(AdminArea)} />
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
-      </Route>
-      <Route path='/edit/:id' component={Edit} />
-      <Route path='/create' component={Create} />
-      <Route path='/show/:id' component={Show} />
-      <Route path='/listing' component={EmployeeListing} />
+		<Route path='edit/:id' components={RequireAuth(ProtectedContent),Edit} />
+      	<Route path='create' components={RequireAuth(ProtectedContent), Create} />  
+      	<Route path='listing' components={RequireAuth(ProtectedContent), EmployeeListing} />
+      </Route>      
     </Router>
   </Provider>
   , document.querySelector('.container'));

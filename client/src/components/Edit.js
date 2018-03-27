@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
-
+const ROOT_URL = 'http://localhost:3090/';
 
 class Edit extends Component {
 
@@ -12,10 +14,9 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-    axios.get('/employee/'+this.props.match.params.id)
+    axios.get(ROOT_URL+'employee/'+this.props.params.id)
       .then(res => {
-        this.setState({ employee: res.data });
-        console.log(this.state.employee);
+        this.setState({ employee: res.data });        
       });
   }
 
@@ -27,12 +28,11 @@ class Edit extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date } = this.state.employee;
 
-    axios.put('/employee/'+this.props.match.params.id, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date })
+    axios.put(ROOT_URL+'employee/'+this.props.params.id, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date })
       .then((result) => {
-        this.props.history.push("/show/"+this.props.match.params.id)
+        this.props.history.push("/listing")
       });
   }
 
@@ -45,32 +45,31 @@ class Edit extends Component {
               EDIT Employee Details
             </h3>
           </div>
-          <div class="panel-body">
-            <h4><a  href={`/show/${this.state.employee._id}`}><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Employee List</a></h4>
+          <div class="panel-body">            
             <form onSubmit={this.onSubmit}>
               <div class="form-group">
-                <label for="isbn">ISBN:</label>
-                <input type="text" class="form-control" name="isbn" value={this.state.book.isbn} onChange={this.onChange} placeholder="ISBN" />
+                <label for="isbn">Email:</label>
+                <input type="text" class="form-control" name="email" value={this.state.employee.email} onChange={this.onChange} placeholder="Email" />
               </div>
               <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" name="title" value={this.state.book.title} onChange={this.onChange} placeholder="Title" />
+                <label for="title">Name:</label>
+                <input type="text" class="form-control" name="first_name" value={this.state.employee.first_name} onChange={this.onChange} placeholder="Name" />
               </div>
               <div class="form-group">
-                <label for="author">Author:</label>
-                <input type="text" class="form-control" name="author" value={this.state.book.author} onChange={this.onChange} placeholder="Author" />
+                <label for="author">Team:</label>
+                <input type="text" class="form-control" name="team" value={this.state.employee.team} onChange={this.onChange} placeholder="Team" />
               </div>
               <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" class="form-control" name="description" value={this.state.book.description} onChange={this.onChange} placeholder="Description" />
+                <label for="description">Location:</label>
+                <input type="text" class="form-control" name="location" value={this.state.employee.location} onChange={this.onChange} placeholder="Location" />
               </div>
               <div class="form-group">
-                <label for="published_date">Published Date:</label>
-                <input type="number" class="form-control" name="published_year" value={this.state.book.published_year} onChange={this.onChange} placeholder="Published Year" />
+                <label for="published_date">Joining Date:</label>
+                <input type="number" class="form-control" name="created_date" value={this.state.employee.created_date} onChange={this.onChange} placeholder="Joining Date" />
               </div>
               <div class="form-group">
-                <label for="publisher">Publisher:</label>
-                <input type="text" class="form-control" name="publisher" value={this.state.book.publisher} onChange={this.onChange} placeholder="Publisher" />
+                <label for="publisher">Supervisor:</label>
+                <input type="text" class="form-control" name="supervisor" value={this.state.employee.supervisor} onChange={this.onChange} placeholder="Supervisor" />
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
             </form>

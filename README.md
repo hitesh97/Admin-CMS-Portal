@@ -8,14 +8,14 @@ A ( React + Redux + Node + Express + MongoDB ) concept app which utilizes JSON W
 
 Motivation
 ---
-JWT-based authentication and authorization on the client is not restricted by domain and is not dependent on a centralized authentication/authorization server once a token has been issued.  And using middlewares to protect server-side routes keeps the server from being dependent on any client-side applications to authenticate and authorize access to its resources.  Thus, by adding a measure of independence between clients and servers for handling authentication and authorization, we can reliably build scaleable applications with distributed microservice architectures without sacrificing security.  Authkeeper should serve as a good starting point for creating such applications using the latest front-end and back-end javascript technologies.
+JWT-based authentication and authorization on the client is not restricted by domain and is not dependent on a centralized authentication/authorization server once a token has been issued.  And using middlewares to protect server-side routes keeps the server from being dependent on any client-side applications to authenticate and authorize access to its resources.  Thus, by adding a measure of independence between clients and servers for handling authentication and authorization, we can reliably build scaleable applications with distributed microservice architectures without sacrificing security.  It should serve as a good starting point for creating such applications using the latest front-end and back-end javascript technologies.
 
 
 Installation And Setup
 ---
-**server installation:**  from /authkeeper/server run `npm install`
+**server installation:**  from /server run `npm install`
 
-**client installation:**  from /authkeeper/client run `npm install`
+**client installation:**  from /client run `npm install`
 
 **database setup:**  setup a mongodb database and connect to it with `mongoose.connect()` in the server's index.js file
 
@@ -34,9 +34,9 @@ Getting Started
 ---
 1.  start up the database by running:  `mongod`
 
-2.  go to /authkeeper/server/ and start the server up by running:  `npm run dev`
+2.  go to /server/ and start the server up by running:  `npm run dev`
 
-3.  go to /authkeeper/client/ and start the client up by running:  `npm start`
+3.  go to /client/ and start the client up by running:  `npm start`
 
 4.  The application should now be running and can be accessed by your browser at **http://localhost:8080/**
 
