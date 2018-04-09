@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
+import WelcomAboard from './WelcomAboard';
 const ROOT_URL = 'http://localhost:3090/';
+
 
 class Create extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
 	  first_name: "",
@@ -28,6 +30,7 @@ class Create extends Component {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
+	this.props = state;
   }
 
   onSubmit = (e) => {
@@ -43,46 +46,51 @@ class Create extends Component {
   render() {
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date } = this.state;
     return (
-      <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
+      <div className="row">
+      <div className="col-md-4">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">
               ADD Employee
             </h3>
           </div>
-          <div class="panel-body">            
+          <div className="panel-body">            
             <form onSubmit={this.onSubmit}>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="isbn">Email:</label>
-                <input type="text" class="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
+                <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="title">Name:</label>
-                <input type="text" class="form-control" name="first_name" value={first_name} onChange={this.onChange} placeholder="Name" />
+                <input type="text" className="form-control" name="first_name" value={first_name} onChange={this.onChange} placeholder="Name" />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="author">Team:</label>
-                <input type="text" class="form-control" name="team" value={team} onChange={this.onChange} placeholder="team" />
+                <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="team" />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="description">Location:</label>
-                <textArea class="form-control" name="location" onChange={this.onChange} placeholder="location" cols="80" rows="3">{location}</textArea>
+                <textArea className="form-control" name="location" onChange={this.onChange} placeholder="location" cols="80" rows="3">{location}</textArea>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="published_date">Joining Date:</label>
-                <input type="number" class="form-control" name="created_date" value={created_date} onChange={this.onChange} placeholder="Joining Date" />
+                <input type="number" className="form-control" name="created_date" value={created_date} onChange={this.onChange} placeholder="Joining Date" />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="publisher">Supervisor:</label>
-                <input type="text" class="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
+                <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" className="btn btn-default">Submit</button>
             </form>
           </div>
-        </div>
+        </div>				
       </div>
+	<div className="col-md-8">			
+	  <WelcomAboard data={this.state}/>
+	</div>
+	</div>			
     );
-  }
+  }  
 }
 
 export default Create;
