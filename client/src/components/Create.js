@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import WelcomAboard from './WelcomAboard';
+import ImageUpload from './ImageUpload';
 const ROOT_URL = 'http://localhost:3090/';
 
 
@@ -23,7 +24,8 @@ class Create extends Component {
 	  degree_stream: "",
 	  degree_colledge: "",
 	  created_date: "",
-	  updated_date: ""  
+	  updated_date: "",
+    user_image: ""  
     };
   }
   onChange = (e) => {
@@ -35,16 +37,30 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date} = this.state;
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image} = this.state;
 
-    axios.post(ROOT_URL+'employee', { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date  })
+    axios.post(ROOT_URL+'employee', { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image  })
       .then((result) => {
         this.props.history.push("/listing")
       });
   }
 
+  _handleImageChange(e) {    
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        user_image: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
+  }
+
   render() {
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date } = this.state;
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image } = this.state;
     return (
       <div className="row">
       <div className="col-md-4">
@@ -79,6 +95,9 @@ class Create extends Component {
               <div className="form-group">
                 <label for="publisher">Supervisor:</label>
                 <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
+              </div>
+              <div className="form-group">
+                <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
               </div>
               <button type="submit" className="btn btn-default">Submit</button>
             </form>

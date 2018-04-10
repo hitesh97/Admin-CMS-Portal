@@ -59,7 +59,7 @@ class WelcomAboard extends Component {
 		  <div className="container custom-container">
 	        <div>
 	            <img src="./images/welcomeImage.png" className="welcomeImage"/>
-	            <img src="./images/users/user-200.png" className="userImage rounded-circle" />
+	            <img src={this.props.data.user_image} className="userImage rounded-circle" />
 	        </div>
 	        <div className="custom-margin">
 	            <div>       
