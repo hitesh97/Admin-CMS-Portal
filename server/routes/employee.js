@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Employee = require('../models/employee.js');
+var Email = require('../services/sendemail.js');
 
 /* GET ALL BOOKS */
 router.get('/', function(req, res, next) {
@@ -20,10 +21,10 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* SAVE BOOK */
-router.post('/', function(req, res, next) {
-  console.log("sdave");	
+router.post('/', function(req, res, next) {  
   Employee.create(req.body, function (err, post) {
-    if (err) return next(err);
+    Email.sendMail();
+	if (err) return next(err);
     res.json(post);
   });
 });

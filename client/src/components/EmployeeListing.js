@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Link, browserHistory } from 'react-router';
+import { Link, browserHistory, router } from 'react-router';
 import axios from 'axios';
 const ROOT_URL = 'http://localhost:3090/';
 
@@ -20,10 +20,11 @@ class EmployeeListing extends Component {
       });
   }
   
-  delete(id){   
+  delete(id){
+	var self = this;  
     axios.delete(ROOT_URL+'employee/'+id)
       .then((result) => {
-        this.props.history.push("/listing")
+        self.props.history.push("/listing")
       });
   }
 

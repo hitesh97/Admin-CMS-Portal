@@ -7,6 +7,7 @@ const employeeSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   first_name: String,
   last_name: String,
+  gender:String,
   team: String,
   location: String,
   designation: String,
@@ -15,6 +16,7 @@ const employeeSchema = new Schema({
   degree: String,
   degree_stream: String,
   degree_colledge: String,
+  user_image: String,
   created_date: { type: Date },
   updated_date: { type: Date, default: Date.now }  
 });

@@ -11,7 +11,16 @@ module.exports = {
     loaders: [{
       exclude: /node_modules/,
       loader: 'babel'
-    }]
+    }/*,
+	{
+	 exclude: /node_modules/,
+	 loader: "style-loader" 
+	},
+	{
+	 exclude: /node_modules/,
+	 loader: "css-loader",
+	 options: { import: false } 
+	}*/]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
