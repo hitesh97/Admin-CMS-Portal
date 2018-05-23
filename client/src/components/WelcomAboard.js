@@ -33,7 +33,8 @@ const css = `
 	            margin-top: -190px;
 	            position: absolute;
 	            top: 269px;
-	            left: 546px;
+				left: 546px;
+				background:#FFFFFF;
 	        }
 
 	        .welcome-heading {
@@ -58,7 +59,7 @@ class WelcomAboard extends Component {
           </div>
 		  <div className="container custom-container">
 	        <div>
-	            <img src="./images/welcomeImage.png" className="welcomeImage"/>
+	            <img src="../images/welcomeImage.png" className="welcomeImage"/>
 	            <img src={this.props.data.user_image} className="userImage rounded-circle" />
 	        </div>
 	        <div className="custom-margin">

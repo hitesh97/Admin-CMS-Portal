@@ -13,6 +13,8 @@ class Create extends Component {
 
   constructor(props) {
     super(props);
+    this._eid = this.props.params.id;
+    this.isUpdate = (this._eid ? "/"+this._eid : "");
     this.state = {
       email: "",
 	  first_name: "",
@@ -30,20 +32,30 @@ class Create extends Component {
 	  updated_date: "" ,	 
       user_image: "" 
     };
-  }
+  };
+
+  componentDidMount() {
+    if(this._eid){
+      axios.get(ROOT_URL+'employee'+this.isUpdate)
+      .then(res => {
+        console.log(res.data,"res.data");
+        this.setState(res.data);
+        this.props = res.data;        
+      });
+    }    
+  };
+
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
-	this.props = state;
+	  this.props = state;
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image} = this.state;
-
-    axios.post(ROOT_URL+'employee', { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image  })
-
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender} = this.state;
+    axios.put(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender  })
       .then((result) => {
         this.props.history.push("/listing")
       });
@@ -64,7 +76,7 @@ class Create extends Component {
   }
 
   render() {
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image } = this.state;
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender } = this.state;
 
     return (
       <div className="row">

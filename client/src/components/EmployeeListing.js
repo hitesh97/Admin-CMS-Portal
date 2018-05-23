@@ -52,7 +52,7 @@ class EmployeeListing extends Component {
               <tbody>
                 {this.state.employee.map(employee =>
                   <tr>
-                    <td><Link to={`/edit/${employee._id}`}>{employee.email}</Link></td>
+                    <td><Link to={`/create/${employee._id}`}>{employee.email}</Link></td>
                     <td>{employee.first_name}</td>
                     <td>{employee.created_date}</td>
                     <td><button onClick={this.delete.bind(this, employee._id)} class="btn btn-danger">Delete</button></td>

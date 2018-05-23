@@ -20,7 +20,6 @@ import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 import { SET_ADMIN_PRIVILEGES } from './actions/types';
 import jwt_decode from 'jwt-decode';
-import Edit from './components/Edit';
 import Create from './components/Create';
 import EmployeeListing from './components/EmployeeListing';
 
@@ -56,7 +55,7 @@ ReactDOM.render(
         <Route path="protected_content" component={RequireAuth(ProtectedContent)} />
         <Route path="admin_area" component={RequireAdmin(AdminArea)} />
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
-		<Route path='edit/:id' components={RequireAuth(ProtectedContent),Edit} />
+		    <Route path='create/:id' components={RequireAuth(ProtectedContent),Create} />
       	<Route path='create' components={RequireAuth(ProtectedContent), Create} />  
       	<Route path='listing' components={RequireAuth(ProtectedContent), EmployeeListing} />
       </Route>      
