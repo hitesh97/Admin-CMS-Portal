@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
-const ROOT_URL = 'http://localhost:3090/';
+import {
+  ROOT_URL
+} from './../actions/types';
+
 const css = `
     .custom-margin {
 	            margin-left: 65px;

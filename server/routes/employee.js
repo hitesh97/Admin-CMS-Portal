@@ -21,7 +21,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* SAVE BOOK */
-router.post('/', function(req, res, next) {  
+router.put('/', function(req, res, next) {  
   Employee.create(req.body, function (err, post) {
     Email.sendMail();
 	if (err) return next(err);

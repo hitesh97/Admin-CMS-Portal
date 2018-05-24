@@ -6,7 +6,9 @@ import WelcomAboard from './WelcomAboard';
 //import Calendar from 'react-calendar';
 import moment from 'moment';
 import ImageUpload from './ImageUpload';
-const ROOT_URL = 'http://localhost:3090/';
+import {
+  ROOT_URL
+} from './../actions/types';
 
 
 class Create extends Component {
