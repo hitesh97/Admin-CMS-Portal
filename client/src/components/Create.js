@@ -32,7 +32,8 @@ class Create extends Component {
 	  degree_colledge: "",
 	  created_date: moment(),
 	  updated_date: "" ,	 
-      user_image: "" 
+      user_image: "",
+      mail_html: ""
     };
   };
 
@@ -56,8 +57,9 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender} = this.state;
-    axios.put(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender  })
+    this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
+    axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
       .then((result) => {
         this.props.history.push("/listing")
       });

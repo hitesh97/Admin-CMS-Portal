@@ -6,17 +6,16 @@ import {
   AUTH_ERROR,
   FETCH_MESSAGE,
   FETCH_ADMIN_MESSAGE,
-  SET_ADMIN_PRIVILEGES
+  SET_ADMIN_PRIVILEGES,
+  ROOT_URL
 } from './types';
 
 const jwt_decode = require('jwt-decode');
 
-const ROOT_URL = 'http://localhost:3090';
-
 export function signinUser({ email, password }) {
   return function(dispatch) {
     // Submit email/password to the server
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}signin`, { email, password })
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
@@ -56,7 +55,7 @@ export function signinUser({ email, password }) {
 
 export function signupUser({ email, password }) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}signup`, { email, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
@@ -71,7 +70,7 @@ export function signupUser({ email, password }) {
 //token included in the header of the request for authorization
 export function activateAdmin({ email, password }) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/admin_activation`,
+    axios.post(`${ROOT_URL}admin_activation`,
       { email, password },
       {headers: { authorization: localStorage.getItem('token') }} )
       .then(response => {
@@ -99,7 +98,7 @@ export function signoutUser() {
 //token included in the header of the request for authorization
 export function fetchMessage() {
   return function(dispatch) {
-    axios.get(`${ROOT_URL}/protected_content`, {
+    axios.get(`${ROOT_URL}protected_content`, {
       headers: { authorization: localStorage.getItem('token') }
     })
       .then(response => {
@@ -116,7 +115,7 @@ export function fetchMessage() {
 //token included in the header of the request for authorization
 export function fetchAdminMessage() {
   return function(dispatch) {
-    axios.get(`${ROOT_URL}/admin_area`, {
+    axios.get(`${ROOT_URL}admin_area`, {
       headers: { authorization: localStorage.getItem('token') }
     })
       .then(response => {
