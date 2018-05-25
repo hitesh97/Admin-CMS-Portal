@@ -9,7 +9,15 @@ import ImageUpload from './ImageUpload';
 import {
   ROOT_URL
 } from './../actions/types';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
+const locationOptions = [
+  { value: 'Indore', label: 'Indore' },
+  { value: 'Bangaluru', label: 'Bangaluru' },
+  { value: 'Noida', label: 'Noida' },
+  { value: 'Gurgoan', label: 'Gurgoan' }
+];
 
 class Create extends Component {
 
@@ -48,8 +56,16 @@ class Create extends Component {
   };
 
   onChange = (e) => {
-    const state = this.state
+    const state = this.state;
+    console.log(e,this);
     state[e.target.name] = e.target.value;
+    this.setState(state);
+	  this.props = state;
+  }
+
+  onSelect = (e) => {
+    const state = this.state;
+    state.location = e.value;
     this.setState(state);
 	  this.props = state;
   }
@@ -104,26 +120,20 @@ class Create extends Component {
                 <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
               </div>
 			  <div className="form-group">
-                <label for="author">Gender:</label>
-				<div class="radio">
-                	<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
-					<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
-				</div>	
-              </div>
-              <div className="form-group">
-                <label for="author">Team:</label>
-                <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
-              </div>  
-              <div className="form-group">
-                <label for="location">Location:</label>
-				<select className="form-control" name="location" onChange={this.onChange}>
-					<option selected value="">Select Location</option>
-					<option value="Indore">Indore</option>
-					<option value="Bangaluru">Bangaluru</option>
-					<option value="Noida">Noida</option>
-					<option value="Gurgoan">Gurgoan</option>
-				</select>                
-			  </div>
+          <label for="author">Gender:</label>
+				  <div class="radio">
+              <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
+					    <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
+				  </div>	
+        </div>
+        <div className="form-group">
+          <label for="author">Team:</label>
+          <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
+        </div>  
+        <div className="form-group">
+          <label for="location">Location:</label>
+          <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />
+        </div>
 			  <div className="form-group">
                 <label for="previous_companies">Previous Companies:</label>
                 <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
