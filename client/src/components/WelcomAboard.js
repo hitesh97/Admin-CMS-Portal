@@ -52,7 +52,7 @@ class WelcomAboard extends Component {
   
   render() {
     return (  	  
-      <div>		
+      <div id="welcomeAbroadBox">		
 		<style>{css}</style>  
         <div className="panel panel-default">
           <div className="panel-heading">

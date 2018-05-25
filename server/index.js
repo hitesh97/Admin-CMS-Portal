@@ -18,9 +18,18 @@ mongoose.connect('mongodb://127.0.0.1:27017');
 app.use(cors());
 // App Setup
 app.use(morgan('combined'));
-app.use(bodyParser.json({ type: '*/*' }));  //parse bodies of all incoming requests into JSON
 
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.use(bodyParser.json({
+	limit: '100mb',
+	parameterLimit: 9000000
+}));
+app.use(bodyParser.urlencoded({
+	limit: '100mb',
+	extended: false,
+	parameterLimit: 9000000
+}));
 app.use('/employee', employee);
 
 // Application Routes
