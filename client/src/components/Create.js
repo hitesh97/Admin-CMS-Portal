@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import WelcomAboard from './WelcomAboard';
-//import Calendar from 'react-calendar';
-import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import moment from 'moment'; 
+import 'react-datepicker/dist/react-datepicker.css';
 import ImageUpload from './ImageUpload';
 import {
   ROOT_URL
@@ -49,7 +50,8 @@ class Create extends Component {
     if(this._eid){
       axios.get(ROOT_URL+'employee'+this.isUpdate)
       .then(res => {
-        console.log(res.data,"res.data");
+        //console.log(res.data,"res.data");
+        res.data.created_date = moment(res.data.created_date).format("LL");
         this.setState(res.data);
         this.props = res.data;        
       });
@@ -58,8 +60,14 @@ class Create extends Component {
 
   onChange = (e) => {
     const state = this.state;
-    console.log(e,this);
     state[e.target.name] = e.target.value;
+    this.setState(state);
+	  this.props = state;
+  }
+
+  onDateChange = (date) => {
+    const state = this.state;
+    state.created_date = moment(date).format("LL");
     this.setState(state);
 	  this.props = state;
   }
@@ -75,6 +83,7 @@ class Create extends Component {
     e.preventDefault();
     this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
+    console.log(this.state,"this.state");
     axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
       .then((result) => {
         this.props.history.push("/listing")
@@ -154,7 +163,7 @@ class Create extends Component {
               </div>	
               <div className="form-group">
                 <label for="published_date">Joining Date:</label>				
-				<input onChange={this.onChange} value={created_date} name="created_date" placeholder="Joining Date"/>
+				        <DatePicker name="created_date" dateFormat="LL" onChange={this.onDateChange} value={created_date} placeholder="Joining Date" />
               </div>
               <div className="form-group">
                 <label for="publisher">Supervisor:</label>

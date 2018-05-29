@@ -21,7 +21,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 /* SAVE BOOK */
-router.put('/', function(req, res, next) {  
+router.post('/', function(req, res, next) {  
   Employee.create(req.body, function (err, post) {
     //Email.sendMail();
 	if (err) return next(err);
@@ -30,7 +30,7 @@ router.put('/', function(req, res, next) {
 });
 
 /* UPDATE BOOK */
-router.put('/:id', function(req, res, next) {
+router.post('/:id', function(req, res, next) {
   Employee.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
