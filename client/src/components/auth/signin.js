@@ -21,30 +21,18 @@ class Signin extends Component {
     const { handleSubmit, fields: { email, password }} = this.props;
 
     return (
-      <div className="container">
-        <div className="card card-login mx-auto mt-5">
-          <div className="card-body">
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-              {this.renderAlert()}
-              <div className="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input {...email} className="form-control" type="email" aria-describedby="emailHelp" placeholder="Enter email" />
-              </div>
-              <div className="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input {...password} className="form-control" type="password" placeholder="Password"/>
-              </div>
-              <div className="form-group">
-                <div className="form-check">
-                  <label className="form-check-label">
-                    <input className="form-check-input" type="checkbox"/> Remember Password</label>
-                </div>
-              </div>
-              <button action="submit" className="btn btn-primary btn-block">Login</button>
-            </form>
-          </div>
-        </div>
-      </div>
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <fieldset className="form-group">
+          <label>Email:</label>
+          <input {...email} className="form-control" />
+        </fieldset>
+        <fieldset className="form-group">
+          <label>Password:</label>
+          <input {...password} type="password" className="form-control" />
+        </fieldset>
+        {this.renderAlert()}
+        <button action="submit" className="btn btn-primary">Sign in</button>
+      </form>
     );
   }
 }

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import Header from './header';
-import BreadCrumb from './BreadCrumb';
-import axios from 'axios';
-import { Link } from 'react-router';
+import React from 'react';
+import { Component } from 'react';
 
-class App extends Component {
+import Header from './header';
+import ReactDOM from 'react-dom';
+
+import axios from 'axios';
+
+export default class App extends Component {
 	
   constructor(props) {
     super(props);
@@ -21,50 +21,19 @@ class App extends Component {
         this.setState({ employee: res.data });        
       });
   }
-  getHeader(){
-    if(this.props.authenticated) {
-      return (
-        <Header/>
-      );
-    }
-  }
-  getBreadCrumb(){
-    if(this.props.authenticated) {
-      return (
-        <BreadCrumb/>
-      );
-    }
-  }
-  getLogo(){
-    if(!this.props.authenticated) {
-      return (
-        <div className="text-center"><img alt="Impetus" src="../../images/Impetus_logo.png"/></div>
-      );
-    }
-  }
   
   render() {
-    var contentCls = this.props.authenticated ? "content-wrapper" : "container";
     return (
       <div>
-        {this.getHeader()}
-        <div className={contentCls}>          
-          <div className="container-fluid">
-            {this.getLogo()}
-            {this.getBreadCrumb()}
-            {this.props.children}  
-          </div> 
-        </div> 	
+        <Header />
+		<div className="container-fluid">
+		  <div className="col-md-12">
+        	{this.props.children}
+		  </div>	
+		</div>
       </div>
     );
   }
   
 };
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated
-  };
-}
-
-export default connect(mapStateToProps)(App);

@@ -6,15 +6,11 @@ class Header extends Component {
   renderLinks() {
     if (this.props.authenticated) {
       return [	
-        <li className="nav-item" key={4}>
-          <Link className="nav-link" to="/create">Add Employee</Link>
-        </li>,
-		    <li className="nav-item" key={3}>
-
+		<li className="nav-item" key={1}>
           <Link className="nav-link" to="/listing">Employees Listing</Link>
-        </li>,
-        <li className="nav-item" key={5}>
-          <Link className="nav-link" to="/signout">Logout</Link>
+        </li>,       
+        <li className="nav-item" key={4}>
+          <Link className="nav-link" to="/signout">Sign Out</Link>
         </li>
       ];
     } else {
@@ -31,26 +27,20 @@ class Header extends Component {
 
   render() {
     return (
-	  <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-      <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	  <nav className="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button className="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
-      <a className="navbar-brand" href="#"><img src="../../images/Impetus_logo.png"/></a>
+      <a className="navbar-brand" href="#">Dashboard</a>
 
-      <div className="collapse navbar-collapse" id="navbarResponsive">
-		    <ul className="navbar-nav navbar-sidenav">
+      <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+		 <ul className="navbar-nav mr-auto">
           {this.renderLinks()}
-         </ul>     
-         <ul className="navbar-nav sidenav-toggler">
-          <li className="nav-item">
-            <a className="nav-link text-center" id="sidenavToggler">
-              <i className="fa fa-fw fa-angle-left"></i>
-            </a>
-          </li>
-        </ul>    
-        <ul className="navbar-nav ml-auto">
-          {this.renderLinks()}
-        </ul>
+         </ul>         
+        <form className="form-inline mt-2 mt-md-0">
+          <input className="form-control mr-sm-2" type="text" placeholder="Search" />
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </div>
     </nav>	
     );

@@ -11,7 +11,6 @@ import {
 } from './types';
 
 const jwt_decode = require('jwt-decode');
-
 export function signinUser({ email, password }) {
   return function(dispatch) {
     // Submit email/password to the server
