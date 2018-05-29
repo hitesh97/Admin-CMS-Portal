@@ -6,6 +6,9 @@ class Signout extends Component {
   componentWillMount() {
     this.props.signoutUser();
   }
+  componentDidMount(){
+  	this.props.history.push("/signin")
+  }
 
   render() {
     return <div>User has been logged out.</div>;
