@@ -1,4 +1,5 @@
 var express = require('express');
+var qs = require('qs');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Employee = require('../models/employee.js');
@@ -22,8 +23,24 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVE BOOK */
 router.post('/', function(req, res, next) {  
-  Employee.create(req.body, function (err, post) {
-    //Email.sendMail();
+  var reqBody = qs.parse(req.body, {depth: 900000, arrayLimit: 1000000});
+  var full_name = reqBody.first_name+" "+reqBody.last_name;
+  var mail_html = reqBody.mail_html;  
+  Employee.create(reqBody, function (err, post) {
+    var attachments = [
+        {   // data uri as an attachment
+            path: reqBody.user_image,
+            cid: 'unique@kreata.ee'
+        }
+    ];
+    var mailOptions = {
+        from: 'admincms@test.com', // sender address
+        to: 'chetan.singhal@impetus.co.in', // list of receivers
+        subject: 'Welcome Aboard '+full_name, // Subject line
+        html: mail_html, // html body
+        attachments: attachments
+    };
+    Email.sendMail(mailOptions);
 	if (err) return next(err);
     res.json(post);
   });
@@ -31,8 +48,18 @@ router.post('/', function(req, res, next) {
 
 /* UPDATE BOOK */
 router.post('/:id', function(req, res, next) {
+  var reqBody = qs.parse(req.body, {depth: 900000, arrayLimit: 1000000});
+  var full_name = reqBody.first_name+" "+reqBody.last_name;
+  var mail_html = reqBody.mail_html; 
   Employee.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
+    var mailOptions = {
+        from: 'welcomeaboard@impetus.co.in', // sender address
+        to: 'chetan.singhal@impetus.co.in', // list of receivers
+        subject: 'Welcome Aboard '+full_name, // Subject line
+        html: mail_html // html body
+    };
+    Email.sendMail(mailOptions);
     res.json(post);
   });
 });

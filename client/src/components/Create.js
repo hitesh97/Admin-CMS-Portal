@@ -108,80 +108,74 @@ class Create extends Component {
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender } = this.state;
 
     return (
-      <div className="row">
-      <div className="col-md-4">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h3 className="panel-title">
-              ADD Employee
-            </h3>
-          </div>
-          <div className="panel-body">            
-            <form onSubmit={this.onSubmit}>
-			  <div className="form-group">
-                <label for="title">First Name:</label>
-                <input type="text" className="form-control" name="first_name" value={first_name} onChange={this.onChange} placeholder="First Name" />
-              </div>
-			  <div className="form-group">
-                <label for="title">Last Name:</label>
-                <input type="text" className="form-control" name="last_name" value={last_name} onChange={this.onChange} placeholder="Last Name" />
-              </div>
-			  <div className="form-group">
-                <label for="isbn">Email:</label>
-                <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
-              </div>
-			  <div className="form-group">
-
-          <label for="author">Gender:</label>
-				  <div class="radio">
-              <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
-					    <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
-				  </div>	
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <div className="panel panel-default">            
+            <div className="panel-body">            
+              <form onSubmit={this.onSubmit}>
+  			  <div className="form-group">
+                  <label for="title">First Name:</label>
+                  <input type="text" className="form-control" name="first_name" value={first_name} onChange={this.onChange} placeholder="First Name" />
+                </div>
+  			  <div className="form-group">
+                  <label for="title">Last Name:</label>
+                  <input type="text" className="form-control" name="last_name" value={last_name} onChange={this.onChange} placeholder="Last Name" />
+                </div>
+  			  <div className="form-group">
+                  <label for="isbn">Email:</label>
+                  <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
+                </div>
+  			  <div className="form-group">
+                  <label for="author">Gender:</label>
+  				<div class="radio">
+                  	<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
+  					<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
+  				</div>	
+                </div>
+                <div className="form-group">
+                  <label for="author">Team:</label>
+                  <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
+                </div>  
+                <div className="form-group">
+                  <label for="location">Location:</label>
+  				        <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />              
+  			  </div>
+  			  <div className="form-group">
+                  <label for="previous_companies">Previous Companies:</label>
+                  <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
+                </div>
+  			  <div className="form-group">
+                  <label for="degree">Degree:</label>
+                  <input className="form-control" name="degree" onChange={this.onChange} placeholder="Degree" value={degree} />
+                </div>				
+  			  <div className="form-group">
+                  <label for="degree_stream">Degree Stream:</label>
+                  <input className="form-control" name="degree_stream" onChange={this.onChange} placeholder="Degree Stream" value={degree_stream} />
+                </div>
+  			  <div className="form-group">
+                  <label for="degree_colledge">Degree Colledge:</label>
+                  <input className="form-control" name="degree_colledge" onChange={this.onChange} placeholder="Degree Colledge" value={degree_colledge} />
+                </div>	
+                <div className="form-group">
+                  <label for="published_date">Joining Date:</label>				
+                  <DatePicker name="created_date" dateFormat="LL" onChange={this.onDateChange} value={created_date} placeholder="Joining Date" />
+                </div>
+                <div className="form-group">
+                  <label for="publisher">Supervisor:</label>
+                  <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
+                </div>
+                <div className="form-group">
+                  <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
+                </div>
+                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+              </form>
+            </div>
+          </div>				
         </div>
-        <div className="form-group">
-          <label for="author">Team:</label>
-          <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
-        </div>  
-        <div className="form-group">
-          <label for="location">Location:</label>
-          <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />
-        </div>
-			  <div className="form-group">
-                <label for="previous_companies">Previous Companies:</label>
-                <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
-              </div>
-			  <div className="form-group">
-                <label for="degree">Degree:</label>
-                <input className="form-control" name="degree" onChange={this.onChange} placeholder="Degree" value={degree} />
-              </div>				
-			  <div className="form-group">
-                <label for="degree_stream">Degree Stream:</label>
-                <input className="form-control" name="degree_stream" onChange={this.onChange} placeholder="Degree Stream" value={degree_stream} />
-              </div>
-			  <div className="form-group">
-                <label for="degree_colledge">Degree Colledge:</label>
-                <input className="form-control" name="degree_colledge" onChange={this.onChange} placeholder="Degree Colledge" value={degree_colledge} />
-              </div>	
-              <div className="form-group">
-                <label for="published_date">Joining Date:</label>				
-				        <DatePicker name="created_date" dateFormat="LL" onChange={this.onDateChange} value={created_date} placeholder="Joining Date" />
-              </div>
-              <div className="form-group">
-                <label for="publisher">Supervisor:</label>
-                <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
-              </div>
-              <div className="form-group">
-                <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
-              </div>
-              <button type="submit" className="btn btn-default">Submit</button>
-            </form>
-          </div>
-        </div>				
-      </div>
-	<div className="col-md-8">			
-	  <WelcomAboard data={this.state}/>
-	</div>
-	</div>			
+      	<div className="col-md-8">			
+      	  <WelcomAboard data={this.state}/>
+      	</div>
+  	  </div>			
     );
   }  
 }

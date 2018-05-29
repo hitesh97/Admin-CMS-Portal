@@ -7,30 +7,30 @@ import {
 } from './../actions/types';
 
 const css = `
-    .custom-margin {
+    #welcomeAbroadBox .custom-margin {
 	            margin-left: 65px;
 	        }
-	        a {
+	        #welcomeAbroadBox a {
 	            color: #548235;
 	            text-decoration: underline;
 	        }
-	        p {
+	        #welcomeAbroadBox p {
 	            margin-top: 23px;
 	        }
-	        .custom-container {
+	        #welcomeAbroadBox .custom-container {
 	            position: relative;
 	            background-color: #F2F2F2;
 	            max-width: 840px;
 	        }
-	        .welcomeImage {
+	        #welcomeAbroadBox .welcomeImage {
 	            width:100%; 
 	        }
-	        *{
+	        #welcomeAbroadBox *{
 	            margin:0px;
 	            padding: 0px;
 	        }
 
-	        .userImage {
+	        #welcomeAbroadBox .userImage {
 	            height: 207px;
 	            width: 207px;
 	            margin-top: -190px;
@@ -40,7 +40,7 @@ const css = `
 				background:#FFFFFF;
 	        }
 
-	        .welcome-heading {
+	        #welcomeAbroadBox .welcome-heading {
 	            font-size: 22px;
 	        }
 `;
@@ -55,15 +55,10 @@ class WelcomAboard extends Component {
       <div id="welcomeAbroadBox">		
 		<style>{css}</style>  
         <div className="panel panel-default">
-          <div className="panel-heading">
-            <h3 className="panel-title">
-              Preview
-            </h3>
-          </div>
 		  <div className="container custom-container">
 	        <div>
 	            <img src="../images/welcomeImage.png" className="welcomeImage"/>
-	            <img src={this.props.data.user_image} className="userImage rounded-circle" />
+	            <img src={this.props.data.user_image ? this.props.data.user_image : " " } className="userImage rounded-circle" />
 	        </div>
 	        <div className="custom-margin">
 	            <div>       
