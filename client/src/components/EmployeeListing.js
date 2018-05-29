@@ -15,7 +15,7 @@ class EmployeeListing extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get(ROOT_URL+'employee')
       .then(res => {
         this.setState({ employee: res.data });        
@@ -31,9 +31,17 @@ class EmployeeListing extends Component {
   }
 
   render() {
-    return (	         	
-		  <div>
+    return (	  
+      <div>
+        	
+		  <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">
+              Employee Listing
+            </h3>
+          </div>
           <div className="panel-body">
+            <h4><Link to="/create"><span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Employee</Link></h4>
             <table className="table table-stripe">
               <thead>
                 <tr>
@@ -49,13 +57,14 @@ class EmployeeListing extends Component {
                     <td><Link to={`/create/${employee._id}`}>{employee.email}</Link></td>
                     <td>{employee.first_name}</td>
                     <td>{employee.created_date}</td>
-                    <td><button onClick={this.delete.bind(this, employee._id)} className="btn btn-secondary">Delete</button></td>
+                    <td><button onClick={this.delete.bind(this, employee._id)} class="btn btn-danger">Delete</button></td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
         </div>
+      </div>
     );
   }
 }
