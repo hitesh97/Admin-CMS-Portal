@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -61,4 +62,4 @@ ReactDOM.render(
       </Route>      
     </Router>
   </Provider>
-  , document.querySelector('.container'));
+  , document.querySelector('body'));
