@@ -131,7 +131,7 @@ class Create extends Component {
                 <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
               </div>
 			  <div className="form-group">
-          <label for="author">Gender:</label>
+        <label for="author">Gender:</label>
 				  <div class="radio">
               <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
 					    <label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
@@ -145,7 +145,7 @@ class Create extends Component {
           <label for="location">Location:</label>
           <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />
         </div>
-			  <div className="form-group">
+   		  <div className="form-group">
                 <label for="previous_companies">Previous Companies:</label>
                 <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
               </div>
