@@ -3,6 +3,16 @@ import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
 class Signup extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  componentWillMount() {
+    if (this.props.authenticated) {
+      this.context.router.push('/listing');
+    }
+  }
+
   handleFormSubmit(formProps) {
     this.props.signupUser(formProps);
   }
@@ -77,7 +87,9 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  return { errorMessage: state.auth.error,
+           authenticated: state.auth.authenticated 
+         };
 }
 
 export default reduxForm({

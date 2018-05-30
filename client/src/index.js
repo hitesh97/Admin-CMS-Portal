@@ -49,16 +49,16 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={Default} />
+        <IndexRoute component={RequireAuth(EmployeeListing)} />
         <Route path="signin" component={Signin} />
-        <Route path="signout" component={Signout} />
+        <Route path="signout" component={RequireAuth(Signout)} />
         <Route path="signup" component={Signup} />
         <Route path="protected_content" component={RequireAuth(ProtectedContent)} />
         <Route path="admin_area" component={RequireAdmin(AdminArea)} />
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
-		    <Route path='create/:id' components={RequireAuth(ProtectedContent),Create} />
-      	<Route path='create' components={RequireAuth(ProtectedContent), Create} />  
-      	<Route path='listing' components={RequireAuth(ProtectedContent), EmployeeListing} />
+		    <Route path='create/:id' components={RequireAuth(Create)} />
+      	<Route path='create' components={RequireAuth(Create)} />  
+      	<Route path='listing' components={RequireAuth(EmployeeListing)} />
       </Route>      
     </Router>
   </Provider>
