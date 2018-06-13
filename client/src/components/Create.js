@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
+import FormValidator from './FormValidator';
 import axios from 'axios';
 import WelcomAboard from './WelcomAboard';
 import DatePicker from 'react-datepicker';
@@ -19,6 +20,11 @@ const locationOptions = [
   { value: 'Noida', label: 'Noida' },
   { value: 'Gurgoan', label: 'Gurgoan' }
 ];
+const genderOptions = [
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' }
+];
+
 
 class Create extends Component {
 
@@ -26,6 +32,101 @@ class Create extends Component {
     super(props);
     this._eid = this.props.params.id;
     this.isUpdate = (this._eid ? "/"+this._eid : "");
+    
+    
+    this.validator = new FormValidator([
+      {
+        field: 'first_name',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide first name.'
+      },
+      { 
+        field: 'last_name',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide last name.'
+      },
+      {
+        field: 'email',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide an email address.'
+      },
+      { 
+        field: 'email',
+        method: 'isEmail',
+        validWhen: true,
+        message: 'That is not a valid email.'
+      },      
+      { 
+        field: 'team',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide team.'
+      },
+      { 
+        field: 'gender',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide gender.'
+      },
+      { 
+        field: 'location',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide location.'
+      },
+      { 
+        field: 'designation',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide designation.'
+      },
+      { 
+        field: 'supervisor',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide supervisor.'
+      },
+      { 
+        field: 'previous_companies',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide previous companies.'
+      },
+      { 
+        field: 'degree',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide degree.'
+      },
+      { 
+        field: 'degree_stream',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide degree stream.'
+      },
+      { 
+        field: 'degree_colledge',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide degree colledge.'
+      },
+      { 
+        field: 'created_date',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide joinning date.'
+      },
+      { 
+        field: 'user_image',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Please provide user image.'
+      }
+    ]);    
+    
     this.state = {
       email: "",
 	  first_name: "",
@@ -41,9 +142,13 @@ class Create extends Component {
 	  degree_colledge: "",
 	  created_date: moment(),
 	  updated_date: "" ,	 
-      user_image: "",
-      mail_html: ""
+    user_image: "",
+    mail_html: "",
+    validation: this.validator.valid()
     };
+
+    this.submitted = false;
+    
   };
 
   componentDidMount() {
@@ -59,6 +164,7 @@ class Create extends Component {
   };
 
   onChange = (e) => {
+    this.submitted = true;
     const state = this.state;
     state[e.target.name] = e.target.value;
     this.setState(state);
@@ -66,6 +172,7 @@ class Create extends Component {
   }
 
   onDateChange = (date) => {
+    this.submitted = true;
     const state = this.state;
     state.created_date = moment(date).format("LL");
     this.setState(state);
@@ -73,21 +180,35 @@ class Create extends Component {
   }
 
   onSelect = (e) => {
+    this.submitted = true;
+    console.log(e,"select e");
     const state = this.state;
-    state.location = e.value;
+    if(e.value=="Male" || e.value=="Female"){
+      state.gender = e.value;
+    }else{
+      state.location = e.value;
+    }
+    
     this.setState(state);
 	  this.props = state;
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
-    console.log(this.state,"this.state");
-    axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
-      .then((result) => {
-        this.props.history.push("/listing")
-      });
+    const validation = this.validator.validate(this.state);    
+    console.log(validation, validation.isValid,"validation");
+    if(!validation.isValid) {  // if it's valid // handle form submission here
+      return false;
+    }else{
+      var self = this;
+      this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
+      const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
+      //console.log(this.state,"this.state");
+      axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
+        .then((result) => {
+          self.props.history.push("/listing")
+        });
+    }    
   }
 
   _handleImageChange(e) {    
@@ -107,68 +228,118 @@ class Create extends Component {
   render() {
     const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender } = this.state;
 
+    let validation = this.submitted ?                         // if the form has been submitted at least once
+                      this.validator.validate(this.state) :   // then check validity every time we render
+                        this.state.validation // otherwise just use what's in state
+    
     return (
       <div className="row mb-4">
         <div className="col-md-4">
           <div className="panel panel-default">            
             <div className="panel-body">            
               <form onSubmit={this.onSubmit}>
-  			  <div className="form-group">
+              
+
+  			  <div className="form-group" >
+              <div className={validation.first_name.isInvalid && 'has-error'}>
                   <label for="title">First Name:</label>
                   <input type="text" className="form-control" name="first_name" value={first_name} onChange={this.onChange} placeholder="First Name" />
-                </div>
-  			  <div className="form-group">
+                  <span className="help-block">{validation.first_name.message}</span>
+              </div>    
+          </div>
+  			  <div className="form-group" >
+              <div className={validation.last_name.isInvalid && 'has-error'}>  
                   <label for="title">Last Name:</label>
                   <input type="text" className="form-control" name="last_name" value={last_name} onChange={this.onChange} placeholder="Last Name" />
+                  <span className="help-block">{validation.last_name.message}</span>
                 </div>
-  			  <div className="form-group">
+          </div>  
+  			  <div className="form-group" >
+            <div className={validation.email.isInvalid && 'has-error'}>
                   <label for="isbn">Email:</label>
                   <input type="text" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="email" />
-                </div>
+                  <span className="help-block">{validation.email.message}</span>
+            </div>    
+          </div>
   			  <div className="form-group">
+            <div className={validation.gender.isInvalid && 'has-error'}>  
                   <label for="author">Gender:</label>
-  				<div class="radio">
-                  	<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Male </label>
-  					<label className="radio-inline"><input type="radio"  name="gender" value={gender} onChange={this.onChange}  /> Female</label>
-  				</div>	
-                </div>
-                <div className="form-group">
-                  <label for="author">Team:</label>
-                  <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
-                </div>  
-                <div className="form-group">
-                  <label for="location">Location:</label>
-  				        <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />              
+  				        <Dropdown options={genderOptions} name="gender" onChange={this.onSelect} value={gender} placeholder="Select gender" />
+                  <span className="help-block">{validation.gender.message}</span>
+              </div>    	
+          </div>
+          <div className="form-group">
+            <div className={validation.team.isInvalid && 'has-error'}>
+                <label for="author">Team:</label>
+                <input type="text" className="form-control" name="team" value={team} onChange={this.onChange} placeholder="Team" />
+                <span className="help-block">{validation.team.message}</span>
+            </div>                  
+          </div>  
+          <div className="form-group">
+            <div className={validation.location.isInvalid && 'has-error'}>
+                <label for="location">Location:</label>
+                <Dropdown options={locationOptions} name="location" onChange={this.onSelect} value={location} placeholder="Select location" />
+                <span className="help-block">{validation.location.message}</span>
+            </div>         
   			  </div>
+          <div className="form-group">
+            <div className={validation.designation.isInvalid && 'has-error'}>
+                <label for="degree">Designation:</label>
+                <input className="form-control" name="designation" onChange={this.onChange} placeholder="Designation" value={designation} />
+                <span className="help-block">{validation.designation.message}</span>
+            </div>                  
+          </div>
   			  <div className="form-group">
-                  <label for="previous_companies">Previous Companies:</label>
-                  <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
-                </div>
+            <div className={validation.previous_companies.isInvalid && 'has-error'}>
+                <label for="previous_companies">Previous Companies:</label>
+                <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3">{previous_companies}</textArea>
+                <span className="help-block">{validation.previous_companies.message}</span>
+            </div>              
+          </div>
   			  <div className="form-group">
-                  <label for="degree">Degree:</label>
-                  <input className="form-control" name="degree" onChange={this.onChange} placeholder="Degree" value={degree} />
-                </div>				
+            <div className={validation.degree.isInvalid && 'has-error'}>
+                <label for="degree">Degree:</label>
+                <input className="form-control" name="degree" onChange={this.onChange} placeholder="Degree" value={degree} />
+                <span className="help-block">{validation.degree.message}</span>
+            </div>                  
+          </div>				
   			  <div className="form-group">
-                  <label for="degree_stream">Degree Stream:</label>
-                  <input className="form-control" name="degree_stream" onChange={this.onChange} placeholder="Degree Stream" value={degree_stream} />
-                </div>
+            <div className={validation.degree_stream.isInvalid && 'has-error'}>
+                <label for="degree_stream">Degree Stream:</label>
+                <input className="form-control" name="degree_stream" onChange={this.onChange} placeholder="Degree Stream" value={degree_stream} />
+                <span className="help-block">{validation.degree_stream.message}</span>
+            </div>                  
+          </div>
   			  <div className="form-group">
+            <div className={validation.degree_colledge.isInvalid && 'has-error'}>
                   <label for="degree_colledge">Degree Colledge:</label>
                   <input className="form-control" name="degree_colledge" onChange={this.onChange} placeholder="Degree Colledge" value={degree_colledge} />
-                </div>	
-                <div className="form-group">
-                  <label for="published_date">Joining Date:</label>				
-                  <DatePicker name="created_date" dateFormat="LL" onChange={this.onDateChange} value={created_date} placeholder="Joining Date" />
-                </div>
-                <div className="form-group">
-                  <label for="publisher">Supervisor:</label>
-                  <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
-                </div>
-                <div className="form-group">
-                  <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
-                </div>
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-              </form>
+                <span className="help-block">{validation.degree_colledge.message}</span>
+            </div>                  
+          </div>	
+          <div className="form-group">
+            <div className={validation.created_date.isInvalid && 'has-error'}>
+              <label for="published_date">Joining Date:</label>				
+              <DatePicker className="form-control" name="created_date" dateFormat="LL" onChange={this.onDateChange} value={created_date} placeholder="Joining Date" />
+              <span className="help-block">{validation.created_date.message}</span>
+            </div>              
+          </div>
+          <div className="form-group">
+            <div className={validation.supervisor.isInvalid && 'has-error'}>
+              <label for="publisher">Supervisor:</label>
+              <input type="text" className="form-control" name="supervisor" value={supervisor} onChange={this.onChange} placeholder="Supervisor" />
+              <span className="help-block">{validation.supervisor.message}</span>
+            </div>            
+          </div>
+          <div className="form-group">
+            <div className={validation.user_image.isInvalid && 'has-error'}>
+              <label for="publisher">User Picture:</label>
+              <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
+              <span className="help-block">{validation.user_image.message}</span>
+            </div>            
+          </div>
+          <button onClick={this.onSubmit} className="btn btn-primary">Submit</button>                
+        </form>
             </div>
           </div>				
         </div>

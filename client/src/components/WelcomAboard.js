@@ -33,10 +33,10 @@ const css = `
 	        #welcomeAbroadBox .userImage {
 	            height: 207px;
 	            width: 207px;
-	            margin-top: -190px;
-	            position: absolute;
-	            top: 269px;
-				left: 546px;
+	            margin-top: -30%;
+				position: absolute;
+				top: 45%;
+				left: 65%;
 				background:#FFFFFF;
 	        }
 
