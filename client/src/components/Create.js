@@ -157,9 +157,11 @@ class Create extends Component {
   componentDidMount() {
     if(this._eid){
       axios.get(ROOT_URL+'employee'+this.isUpdate)
-      .then(res => {
-        
+      .then(res => {        
         res.data.created_date = moment(res.data.created_date).format("LL");
+        res.data.genderOps1 = (res.data.gender=="Male" ? "He" : "She");
+        res.data.genderOps2 = (res.data.gender=="Male" ? "His" : "Her");
+        res.data.genderOps3 = (res.data.gender=="Male" ? "him" : "her");
         this.setState(res.data);
         this.props = res.data;        
       });
