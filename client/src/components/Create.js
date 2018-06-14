@@ -141,10 +141,13 @@ class Create extends Component {
 	  degree_stream: "",
 	  degree_colledge: "",
 	  created_date: moment(),
-	  updated_date: "" ,	 
+    updated_date: "" ,    
     user_image: "",
     mail_html: "",
-    validation: this.validator.valid()
+    validation: this.validator.valid(),
+    genderOps1:"",
+    genderOps2:"",
+    genderOps3:""
     };
 
     this.submitted = false;
@@ -155,7 +158,7 @@ class Create extends Component {
     if(this._eid){
       axios.get(ROOT_URL+'employee'+this.isUpdate)
       .then(res => {
-        //console.log(res.data,"res.data");
+        
         res.data.created_date = moment(res.data.created_date).format("LL");
         this.setState(res.data);
         this.props = res.data;        
@@ -181,10 +184,13 @@ class Create extends Component {
 
   onSelect = (e) => {
     this.submitted = true;
-    console.log(e,"select e");
+    
     const state = this.state;
     if(e.value=="Male" || e.value=="Female"){
       state.gender = e.value;
+      state.genderOps1 = (e.value=="Male" ? "He" : "She");
+      state.genderOps2 = (e.value=="Male" ? "His" : "Her");
+      state.genderOps3 = (e.value=="Male" ? "him" : "her");
     }else{
       state.location = e.value;
     }
@@ -196,18 +202,19 @@ class Create extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const validation = this.validator.validate(this.state);    
-    console.log(validation, validation.isValid,"validation");
-    if(!validation.isValid) {  // if it's valid // handle form submission here
-      return false;
-    }else{
+    this.submitted = true;
+    if(validation.isValid){
       var self = this;
       this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
       const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
-      //console.log(this.state,"this.state");
+      
       axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
         .then((result) => {
           self.props.history.push("/listing")
         });
+    }else{
+      this.setState(this.state);
+      return false;
     }    
   }
 

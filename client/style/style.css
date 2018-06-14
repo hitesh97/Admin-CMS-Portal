@@ -20,6 +20,13 @@
 .react-datepicker-wrapper, .react-datepicker__input-container{
   width: 100%;
 }
+.help-block{
+  color:red;
+  font-size: 14px;
+  float: left;
+  position: relative;
+  width: 100%;
+}
 /*.container-fluid {
   top: 65px;
   position: absolute;		
