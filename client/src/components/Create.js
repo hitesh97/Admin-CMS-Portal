@@ -13,6 +13,7 @@ import {
 } from './../actions/types';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import watermark from 'watermarkjs';
 
 const locationOptions = [
   { value: 'Indore', label: 'Indore' },
@@ -220,18 +221,33 @@ class Create extends Component {
     }    
   }
 
-  _handleImageChange(e) {    
+  mergeImages(img){
+    watermark(['../images/welcomeImage.png', img])
+    .dataUrl(watermark.image.atPos(()=>410, ()=>60, 1))
+    .then(url => {
+      this.setState({user_image: url});
+    });
+  }
+
+  _handleImageChange(e) {
+  var self = this;    
     e.preventDefault();
 
     let reader = new FileReader();
+    var uImage = new Image();
+    reader.addEventListener("load", function () {        
+        uImage.height = 207;
+        uImage.width = 207;
+        uImage.src = this.result;
+      }, false);
+
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      this.setState({
-        user_image: reader.result
-      });
+      self.setState({user_image: uImage.src})
+      self.mergeImages(uImage);
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(file);
   }
 
   render() {

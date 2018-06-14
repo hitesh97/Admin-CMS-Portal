@@ -27,8 +27,6 @@
   position: relative;
   width: 100%;
 }
-/*.container-fluid {
-  top: 65px;
-  position: absolute;		
-  width: 98%;
-}*/	
+.mail-img {
+	display: none;
+}

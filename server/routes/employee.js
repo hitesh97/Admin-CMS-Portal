@@ -30,7 +30,7 @@ router.post('/', function(req, res, next) {
     var attachments = [
         {   // data uri as an attachment
             path: reqBody.user_image,
-            cid: 'unique@kreata.ee'
+            cid: reqBody.email
         }
     ];
     var mailOptions = {
@@ -53,11 +53,18 @@ router.post('/:id', function(req, res, next) {
   var mail_html = reqBody.mail_html; 
   Employee.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
+    var attachments = [
+        {   // data uri as an attachment
+            path: reqBody.user_image,
+            cid: reqBody.email
+        }
+    ];
     var mailOptions = {
         from: 'welcomeaboard@impetus.co.in', // sender address
         to: 'chetan.singhal@impetus.co.in', // list of receivers
         subject: 'Welcome Aboard '+full_name, // Subject line
-        html: mail_html // html body
+        html: mail_html, // html body
+        attachments: attachments
     };
     Email.sendMail(mailOptions);
     res.json(post);
