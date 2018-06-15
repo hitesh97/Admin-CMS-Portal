@@ -8,7 +8,7 @@ import {
 
 const css = `	
     		#welcomeAbroadBox .custom-margin {
-	            padding-bottom: 20px;
+	            padding-bottom: 50px;
 	        }
 	        #welcomeAbroadBox a {
 	            color: #00b050;

@@ -223,8 +223,26 @@ class Create extends Component {
 
   mergeImages(img){
     watermark(['../images/welcomeImage.png', img])
-    .dataUrl(watermark.image.atPos(()=>410, ()=>60, 1))
+    .dataUrl(function (headerImg, userImg) {
+      var context = headerImg.getContext('2d');
+      context.save();
+      //draw a circle
+      context.beginPath();
+      context.arc(520, 140, 100, 0, Math.PI * 2, true);
+      context.fillStyle = "#ffffff";
+      context.fill();
+      context.strokeStyle="#ffffff";
+      context.stroke();
+      //draw a image
+      context.globalCompositeOperation='source-atop';
+      context.drawImage(userImg, 450, 70);
+      context.globalCompositeOperation='source-over';
+      context.restore();
+      
+      return headerImg;
+    })
     .then(url => {
+      console.log('url=', url);
       this.setState({user_image: url});
     });
   }
@@ -235,16 +253,15 @@ class Create extends Component {
 
     let reader = new FileReader();
     var uImage = new Image();
-    reader.addEventListener("load", function () {        
+    reader.addEventListener("load", function () {   
+        uImage.src = this.result;     
         uImage.height = 207;
-        uImage.width = 207;
-        uImage.src = this.result;
+        uImage.width = 207;        
       }, false);
 
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      self.setState({user_image: uImage.src})
       self.mergeImages(uImage);
     }
     reader.readAsDataURL(file);
