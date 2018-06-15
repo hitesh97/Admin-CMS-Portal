@@ -23,6 +23,7 @@ import { SET_ADMIN_PRIVILEGES } from './actions/types';
 import jwt_decode from 'jwt-decode';
 import Create from './components/Create';
 import EmployeeListing from './components/EmployeeListing';
+import EmailSetting from './components/EmailSetting';
 
 
 
@@ -58,6 +59,7 @@ ReactDOM.render(
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
 		    <Route path='create/:id' components={RequireAuth(Create)} />
       	<Route path='create' components={RequireAuth(Create)} />  
+        <Route path='email_setting' components={RequireAuth(EmailSetting)} /> 
       	<Route path='listing' components={RequireAuth(EmployeeListing)} />
       </Route>      
     </Router>
