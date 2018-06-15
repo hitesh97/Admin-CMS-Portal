@@ -80,17 +80,17 @@ class WelcomAboard extends Component {
 							            	<p>Good day,</p>
 							            </div>
 							            <div>
-							                <p>It is my pleasure to introduce <a style={{color: '#00b050'}} href={`mailto:${this.props.data.email}`}>{this.props.data.first_name} {this.props.data.last_name}</a>. He has joined the {this.props.data.team} team at {this.props.data.location} as an {this.props.data.designation} and will work with {this.props.data.supervisor}.</p>
+							                <p>It is my pleasure to introduce <a style={{color: '#00b050'}} href={`mailto:${this.props.data.email}`}>{this.props.data.first_name} {this.props.data.last_name}</a>. {this.props.data.genderOps1} has joined the {this.props.data.team} team at {this.props.data.location} as an {this.props.data.designation} and will work with {this.props.data.supervisor}.</p>
 							            </div>
 							            <div>                
-							                <p>His previous experience was with {this.props.data.previous_companies}.</p>
+							                <p>{this.props.data.genderOps2} previous experience was with {this.props.data.previous_companies}.</p>
 							            </div>
 							            <div>               
 							                <p>{this.props.data.first_name} earned a {this.props.data.degree} degree in {this.props.data.degree_stream} from {this.props.data.degree_colledge}.
 							                </p>
 							            </div>
 							            <div>
-							                <p>Join me in welcoming him and wishing him the very best in his new assignment.</p>
+							                <p>Join me in welcoming {this.props.data.genderOps3} and wishing {this.props.data.genderOps3} the very best in his new assignment.</p>
 							            </div>
 							            <div>
 							                <p>Thank you,
