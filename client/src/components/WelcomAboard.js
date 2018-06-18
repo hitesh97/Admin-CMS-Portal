@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import {
+  BASE_URL,
   ROOT_URL
 } from './../actions/types';
 
@@ -63,7 +64,7 @@ class WelcomAboard extends Component {
 			        <div className="panel panel-default">
 					 	<div className="container custom-container">
 					        <div id="wimg">
-					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : "http://localhost:8090/images/welcomeImage.png"} className="desktop-img welcomeImage"/>
+					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="desktop-img welcomeImage"/>
 					            <img src={"cid:"+this.props.data.email} alt=" " className="mail-img welcomeImage rounded-circle" />
 					        </div>
 					        <div className="custom-margin">
