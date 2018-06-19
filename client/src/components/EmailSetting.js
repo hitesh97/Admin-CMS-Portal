@@ -24,13 +24,19 @@ class EmailSetting extends Component {
         field: 'from',
         method: 'isEmpty',
         validWhen: false,
-        message: 'Please provide from email.'
+        message: 'Please provide from email address.'
+      },
+      { 
+        field: 'from',
+        method: 'isEmail',
+        validWhen: true,
+        message: 'That is not a valid email.'
       },
       { 
         field: 'to',
         method: 'isEmpty',
         validWhen: false,
-        message: 'Please provide to emails.'
+        message: 'Please provide to email address.'
       },
       {
         field: 'subject_text',
@@ -44,12 +50,29 @@ class EmailSetting extends Component {
       from: "",
   	  to: "",
   	  subject_text: "",
+      type: "EMAIL_SETTING",
       validation: this.validator.valid()   
     };
 
     this.submitted = false;
+    this.getEmailSetting();
     
-  };
+  }
+
+  getEmailSetting() {
+    var self = this;
+
+    axios.get(ROOT_URL+'commonSetting/'+self.state.type)
+    .then((result) => {
+      if(result && result.data && result.data.req_json) {
+        result = JSON.parse(result.data.req_json);
+        this.setState(result);
+      }
+      else {
+        console.warn("No record found!!")
+      }      
+    });
+  }
 
   onChange = (e) => {
     this.submitted = true;
@@ -67,9 +90,9 @@ class EmailSetting extends Component {
     this.submitted = true;
     if(validation.isValid){
       var self = this;
-      const { from, to, subject_text } = this.state;
+      const { from, to, subject_text, type } = this.state;
       
-      axios.post(ROOT_URL+'emailSetting'+this.isUpdate, { from, to, subject_text })
+      axios.post(ROOT_URL+'commonSetting/'+this.isUpdate, { from, to, subject_text, type })
         .then((result) => {
           self.props.history.push("/listing")
         });
@@ -87,11 +110,10 @@ class EmailSetting extends Component {
     let validation = this.submitted ?                         // if the form has been submitted at least once
                       this.validator.validate(this.state) :   // then check validity every time we render
                         this.state.validation // otherwise just use what's in state
-                        console.log(this.validator)
     
     return (
-      <div className="row mb-4">
-        <div className="col-md-4">
+      <div className="row mb-6">
+        <div className="col-md-6">
           <div className="panel panel-default">            
             <div className="panel-body">            
               <form onSubmit={this.onSubmit}>
@@ -117,7 +139,7 @@ class EmailSetting extends Component {
                   <input type="text" className="form-control" name="subject_text" value={subject_text} onChange={this.onChange} placeholder="Subject" />
                   <span className="help-block">{validation.subject_text.message}</span>
             </div>    
-          </div> 			  
+          </div> 	  
           <button onClick={this.onSubmit} className="btn btn-primary">Submit</button>                
         </form>
             </div>

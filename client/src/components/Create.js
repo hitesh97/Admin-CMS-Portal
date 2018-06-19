@@ -166,7 +166,10 @@ class Create extends Component {
         this.setState(res.data);
         this.props = res.data;        
       });
-    }    
+    }
+
+    axios.get(ROOT_URL+'employee/getCommonSetting/EMAIL_SETTING')
+    .then(res => { });        
   };
 
   onChange = (e) => {
