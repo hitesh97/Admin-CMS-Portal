@@ -7,6 +7,7 @@ module.exports = {
     var transporter = nodemailer.createTransport({
         host: 'server-020.impetus.co.in',
         port: 25,
+		tls: { rejectUnauthorized: false },
         secure: false
     });
     transporter.sendMail(mailOptions, function(error, info){

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import Header from './header';
-import BreadCrumb from './BreadCrumb';
+import BreadCrumb from './Breadcrumb';
 import axios from 'axios';
 import { Link } from 'react-router';
 

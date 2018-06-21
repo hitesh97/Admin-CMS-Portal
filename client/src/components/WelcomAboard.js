@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
 import {
+  BASE_URL,
   ROOT_URL
 } from './../actions/types';
 
@@ -63,8 +64,8 @@ class WelcomAboard extends Component {
 			        <div className="panel panel-default">
 					 	<div className="container custom-container">
 					        <div id="wimg">
-					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : "http://localhost:8090/images/welcomeImage.png"} className="desktop-img welcomeImage"/>
-					            <img src={"cid:"+this.props.data.email} alt=" " className="mail-img welcomeImage rounded-circle" />
+					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="desktop-img welcomeImage" alt=" "/>
+					            <img src={"cid:"+this.props.data.email} alt=" " className="mail-img" />
 					        </div>
 					        <div className="custom-margin">
 						        <table cellspacing="0" cellpadding="0" border="0">
@@ -72,10 +73,7 @@ class WelcomAboard extends Component {
 										<td width="8%">
 											&nbsp;
 										</td>
-										<td style={{backgroundColor: '#F2F2F2'}}>
-							            <div>
-							            	<b>WELCOME ABROAD</b>
-							            </div>
+										<td style={{backgroundColor: '#F2F2F2'}}>							            
 							            <div>
 							            	<p>Good day,</p>
 							            </div>
@@ -90,10 +88,10 @@ class WelcomAboard extends Component {
 							                </p>
 							            </div>
 							            <div>
-							                <p>Join me in welcoming {this.props.data.genderOps3} and wishing {this.props.data.genderOps3} the very best in his new assignment.</p>
+							                <p>Join me in welcoming {this.props.data.genderOps3} and wishing {this.props.data.genderOps3} the very best of luck in {this.props.data.genderOps2.toLowerCase()} new assignment.</p>
 							            </div>
 							            <div>
-							                <p>Thank you,
+							                <p>Thank you,<br/>
 							                    Sanjeev
 							                    <br/>
 							                    <br/>
