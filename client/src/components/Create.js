@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import FormValidator from './FormValidator';
-import axios from 'axios';
+import AxiosBuilder from './AxiosBuilder';
 import WelcomAboard from './WelcomAboard';
 import DatePicker from 'react-datepicker';
 import moment from 'moment'; 
@@ -33,7 +33,7 @@ class Create extends Component {
     super(props);
     this._eid = this.props.params.id;
     this.isUpdate = (this._eid ? "/"+this._eid : "");
-    
+    this.axios = new AxiosBuilder({});
     
     this.validator = new FormValidator([
       {
@@ -156,16 +156,20 @@ class Create extends Component {
   };
 
   componentDidMount() {
+    var self = this;
     if(this._eid){
-      axios.get(ROOT_URL+'employee'+this.isUpdate)
-      .then(res => {        
-        res.data.created_date = moment(res.data.created_date).format("LL");
-        res.data.genderOps1 = (res.data.gender=="Male" ? "He" : "She");
-        res.data.genderOps2 = (res.data.gender=="Male" ? "His" : "Her");
-        res.data.genderOps3 = (res.data.gender=="Male" ? "him" : "her");
-        this.setState(res.data);
-        this.props = res.data;        
-      });
+      const params = {   "url":ROOT_URL+'employee'+this.isUpdate,
+                         "method":"get",
+                         "payload":{}
+                    };
+      this.axios.callAxios(params,function(result){
+        result.created_date = moment(result.created_date).format("LL");
+        result.genderOps1 = (result.gender=="Male" ? "He" : "She");
+        result.genderOps2 = (result.gender=="Male" ? "His" : "Her");
+        result.genderOps3 = (result.gender=="Male" ? "him" : "her");
+        self.setState(result);
+        self.props = result;
+      });      
     }    
   };
 
@@ -210,11 +214,13 @@ class Create extends Component {
       var self = this;
       this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
       const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
-      
-      axios.post(ROOT_URL+'employee'+this.isUpdate, { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  })
-        .then((result) => {
-          self.props.history.push("/listing")
-        });
+      const params = {   "url":ROOT_URL+'employee'+this.isUpdate,
+                          "method":"post",
+                          "payload":{ email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  }
+                    };
+      this.axios.callAxios(params,function(result){
+        self.props.history.push("/listing");
+      });
     }else{
       this.setState(this.state);
       return false;
