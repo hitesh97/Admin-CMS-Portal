@@ -238,35 +238,49 @@ class Create extends Component {
       context.stroke();
       //draw a image
       context.globalCompositeOperation='source-atop';
-      context.drawImage(userImg, 450, 70);
-      context.globalCompositeOperation='source-over';
+      context.drawImage(userImg, 442, 85);
+      //context.globalCompositeOperation='destination-over';
       context.restore();
       
       return headerImg;
     })
     .then(url => {
-      console.log('url=', url);
       this.setState({user_image: url});
     });
   }
 
+  getThumbnail(e, self) {
+    var myCan = document.createElement('canvas');
+    var img = new Image();
+    img.src = e.target.result;
+
+    img.onload = function () {
+      myCan.id = "myTempCanvas";
+      myCan.width = 160;
+      myCan.height = 160;
+
+      if (myCan.getContext) {
+        var cntxt = myCan.getContext("2d");
+        cntxt.drawImage(img, 0, 0, myCan.width, myCan.height);
+        var dataURL = myCan.toDataURL(); 
+
+        if (dataURL != null && dataURL != undefined) {
+            var nImg = document.createElement('img');
+            nImg.src = dataURL;
+            self.mergeImages(nImg);                    
+        }
+        else
+            alert('unable to get context');
+      }
+    } 
+  }
+
   _handleImageChange(e) {
-  var self = this;    
+    var self = this;    
     e.preventDefault();
-
     let reader = new FileReader();
-    var uImage = new Image();
-    reader.addEventListener("load", function () {   
-        uImage.src = this.result;     
-        uImage.height = 207;
-        uImage.width = 207;        
-      }, false);
-
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      self.mergeImages(uImage);
-    }
+    reader.onload = function (e) { self.getThumbnail(e, self) };
+    let file = e.target.files[0]; 
     reader.readAsDataURL(file);
   }
 
