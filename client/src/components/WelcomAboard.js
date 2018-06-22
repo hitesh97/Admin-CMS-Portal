@@ -64,8 +64,8 @@ class WelcomAboard extends Component {
 			        <div className="panel panel-default">
 					 	<div className="container custom-container">
 					        <div id="wimg">
-					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="desktop-img welcomeImage" alt=" "/>
-					            <img src={"cid:"+this.props.data.email} alt=" " className="mail-img" />
+					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="desktop-img welcomeImage" alt=" " onError={(e)=>{e.target.style.display = "none"}}/>
+					            <img src={"cid:"+this.props.data.email} alt=" " onError={(e)=>{e.target.style.display = "none"}} />
 					        </div>
 					        <div className="custom-margin">
 						        <table cellspacing="0" cellpadding="0" border="0">
