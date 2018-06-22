@@ -36,22 +36,16 @@
 .react-datepicker-wrapper, .react-datepicker__input-container{
   width: 100%;
 }
-.has-error .help-block{
+.help-block{
   color:red;
   font-size: 14px;
   float: left;
   position: relative;
   width: 100%;
 }
-.has-error input, .has-error .Dropdown-control, .has-error textarea {
-  border-color: red;
-}
 .mail-img {
 	display: none;
 }
 #welcomeAbroadBox {
 	font-family: "Tahoma",sans-serif;
-}
-.form-group label {
-  font-weight: 500;
 }
