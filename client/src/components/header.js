@@ -5,15 +5,15 @@ import { Link } from 'react-router';
 class Header extends Component {
   renderLinks() {
     if (this.props.authenticated) {
-      return [	
-        <li className="nav-item" key={3}>
-          <Link className="nav-link" to="/create">Add Employee</Link>
-        </li>,
-		    <li className="nav-item" key={4}>
-          <Link className="nav-link" to="/listing">Employees Listing</Link>
-        </li>,
+      return [
         <li className="nav-item" key={5}>
           <Link className="nav-link" to="/email_setting">Mail Configuration</Link>
+        </li>,	
+        <li className="nav-item" key={4}>
+          <Link className="nav-link" to="/listing">Employees Listing</Link>
+        </li>,
+        <li className="nav-item" key={3}>
+          <Link className="nav-link" to="/create">Add Employee</Link>
         </li>,
         <li className="nav-item" key={6}>
           <Link className="nav-link" to="/signout">Logout</Link>
