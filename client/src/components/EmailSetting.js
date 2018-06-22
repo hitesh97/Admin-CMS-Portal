@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import FormValidator from './FormValidator';
-import axios from 'axios';
+import AxiosBuilder from './AxiosBuilder';
 import {
   ROOT_URL
 } from './../actions/types';
@@ -17,7 +17,7 @@ class EmailSetting extends Component {
     super(props);
     this._eid = this.props.params.id;
     this.isUpdate = (this._eid ? "/"+this._eid : "");
-    
+    this.axios = new AxiosBuilder({});
     
     this.validator = new FormValidator([
       {
@@ -60,18 +60,20 @@ class EmailSetting extends Component {
   }
 
   getEmailSetting() {
-    var self = this;
-
-    axios.get(ROOT_URL+'commonSetting/'+self.state.type)
-    .then((result) => {
-      if(result && result.data && result.data.req_json) {
-        result = JSON.parse(result.data.req_json);
-        this.setState(result);
-      }
-      else {
-        console.warn("No record found!!")
-      }      
-    });
+    var self = this;  
+    const params = {   "url":ROOT_URL+'commonSetting/'+self.state.type,
+                          "method":"get",
+                          "payload":{}
+                    };
+      self.axios.callAxios(params,function(result){
+        if(result && result && result.req_json) {
+          result = JSON.parse(result.req_json);
+          self.setState(result);
+        }
+        else {
+          console.warn("No record found!!")
+        }             
+      });    
   }
 
   onChange = (e) => {
@@ -89,12 +91,14 @@ class EmailSetting extends Component {
     const validation = this.validator.validate(this.state);    
     this.submitted = true;
     if(validation.isValid){
-      var self = this;
-      const { from, to, subject_text, type } = this.state;
-      
-      axios.post(ROOT_URL+'commonSetting/'+this.isUpdate, { from, to, subject_text, type })
-        .then((result) => {
-          self.props.history.push("/listing")
+        const { from, to, subject_text, type } = this.state;
+        var self = this;  
+        const params = {    "url":ROOT_URL+'commonSetting/'+this.isUpdate,
+                            "method":"post",
+                            "payload":{ from, to, subject_text, type }
+                      };
+        self.axios.callAxios(params,function(result){
+          self.props.history.push("/listing")             
         });
     }else{
       this.setState(this.state);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory, router } from 'react-router';
-import axios from 'axios';
+import AxiosBuilder from './AxiosBuilder';
 import moment from 'moment';
 // Import React Table
 import ReactTable from "react-table";
@@ -18,21 +18,29 @@ class EmployeeListing extends Component {
     this.state = {
       employee: []
     };
+    this.axios = new AxiosBuilder({});
   }
 
   componentWillMount() {
-    axios.get(ROOT_URL+'employee')
-      .then(res => {
-        this.setState({ employee: res.data });        
-      });
+      var self = this;
+      const params = {   "url":ROOT_URL+'employee',
+                         "method":"get",
+                         "payload":{}
+                  };
+      this.axios.callAxios(params,function(result){
+        self.setState({ employee: result });        
+      });    
   }
   
   delete(id){
-	var self = this;  
-    axios.delete(ROOT_URL+'employee/'+id)
-      .then((result) => {
-        self.props.history.push("/listing")
-      });
+    var self = this;  
+    const params = {   "url":ROOT_URL+'employee/'+id,
+                          "method":"delete",
+                          "payload":{}
+                    };
+    this.axios.callAxios(params,function(result){
+      self.props.history.push("/listing");        
+    });  
   }
 
   render() {    
