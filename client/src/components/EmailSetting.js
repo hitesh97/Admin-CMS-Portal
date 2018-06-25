@@ -144,7 +144,7 @@ class EmailSetting extends Component {
                   <span className="help-block">{validation.subject_text.message}</span>
             </div>    
           </div> 	  
-          <button onClick={this.onSubmit} className="btn btn-primary">Submit</button>                
+          <button onClick={this.onSubmit} className="btn btn-success">Submit</button>                
         </form>
             </div>
           </div>				

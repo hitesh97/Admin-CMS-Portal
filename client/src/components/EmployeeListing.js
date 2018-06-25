@@ -55,7 +55,7 @@ class EmployeeListing extends Component {
                   Header: "Email",
                   accessor: "email",
                   className:"text-center",
-                  Cell: row => <Link to={`/create/${row.original._id}`}>{row.original.email}</Link>   
+                  Cell: row => <Link to={`/edit/${row.original._id}`}>{row.original.email}</Link>   
                 },
                 {
                   Header: "Name",
@@ -74,7 +74,7 @@ class EmployeeListing extends Component {
                   accessor: "actions",
                   className:"text-center",
                   filterable: false,
-                  Cell: row => <button onClick={this.delete.bind(this, row.original._id)} className="btn btn-secondary">Delete</button> // Custom cell components!
+                  Cell: row => <button onClick={this.delete.bind(this, row.original._id)} className="btn btn-success">Delete</button> // Custom cell components!
                 }
           ]}
           defaultPageSize={10}

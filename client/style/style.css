@@ -14,6 +14,16 @@
 	font-family:"Franklin Gothic Book";
 	panose-1:2 11 5 3 2 1 2 2 2 4;
 }	
+
+a {
+  color: #00b050;
+}
+
+a:hover, a:active, a:focus {
+  color: #00b050;
+  text-decoration: none;
+}
+
 .header-text {
   color: #00D8FF !important;
 }
