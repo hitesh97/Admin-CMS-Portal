@@ -129,7 +129,7 @@ class Create extends Component {
     ]);    
     
     this.state = {
-      email: "",
+    email: "",
 	  first_name: "",
 	  last_name: "",
 	  gender: "",
@@ -141,7 +141,7 @@ class Create extends Component {
 	  degree: "",
 	  degree_stream: "",
 	  degree_colledge: "",
-	  created_date: moment(),
+	  created_date: moment().format("LL"),
     updated_date: "" ,    
     user_image: "",
     mail_html: "",
@@ -150,7 +150,7 @@ class Create extends Component {
     genderOps2:"",
     genderOps3:""
     };
-
+    console.log(moment(),"moment()");
     this.submitted = false;
     
   };
@@ -166,7 +166,7 @@ class Create extends Component {
         result.created_date = moment(result.created_date).format("LL");
         result.genderOps1 = (result.gender=="Male" ? "He" : "She");
         result.genderOps2 = (result.gender=="Male" ? "His" : "Her");
-        result.genderOps3 = (result.gender=="Male" ? "him" : "her");
+        result.genderOps3 = (result.gender=="Male" ? "him" : "her");        
         self.setState(result);
         self.props = result;
       });      
