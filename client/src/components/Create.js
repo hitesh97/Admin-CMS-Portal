@@ -407,7 +407,7 @@ class Create extends Component {
               <span className="help-block">{validation.user_image.message}</span>
             </div>            
           </div>
-          <button onClick={this.onSubmit} className="btn btn-primary btn-block">Submit</button>                
+          <button onClick={this.onSubmit} className="btn btn-success btn-block">Submit</button>                
         </form>
             </div>
           </div>				

@@ -57,7 +57,7 @@ ReactDOM.render(
         <Route path="protected_content" component={RequireAuth(ProtectedContent)} />
         <Route path="admin_area" component={RequireAdmin(AdminArea)} />
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
-		    <Route path='create/:id' components={RequireAuth(Create)} />
+		    <Route path='edit/:id' components={RequireAuth(Create)} />
       	<Route path='create' components={RequireAuth(Create)} />  
         <Route path='email_setting' components={RequireAuth(EmailSetting)} /> 
       	<Route path='listing' components={RequireAuth(EmployeeListing)} />
