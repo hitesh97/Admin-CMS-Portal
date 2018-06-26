@@ -230,6 +230,7 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    document.getElementById('userImg').remove();
     const validation = this.validator.validate(this.state);    
     this.submitted = true;
     if(validation.isValid){
