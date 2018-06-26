@@ -25,6 +25,10 @@ const genderOptions = [
   { value: 'Male', label: 'Male' },
   { value: 'Female', label: 'Female' }
 ];
+const yesNoOptions = [
+  { value: 'Yes', label: 'Yes' },
+  { value: 'No', label: 'No' }
+];
 
 
 class Create extends Component {
@@ -148,7 +152,8 @@ class Create extends Component {
     validation: this.validator.valid(),
     genderOps1:"",
     genderOps2:"",
-    genderOps3:""
+    genderOps3:"",
+    is_mail: "No"
     };
     console.log(moment(),"moment()");
     this.submitted = false;
@@ -213,6 +218,16 @@ class Create extends Component {
 	  this.props = state;
   }
 
+  onYesNoSelect = (e) => {
+    this.submitted = true;
+    
+    const state = this.state;
+    state.is_mail = e.value;
+    
+    this.setState(state);
+	  this.props = state;
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     const validation = this.validator.validate(this.state);    
@@ -220,10 +235,10 @@ class Create extends Component {
     if(validation.isValid){
       var self = this;
       this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
-      const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html} = this.state;
+      const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html, is_mail} = this.state;
       const params = {   "url":ROOT_URL+'employee'+this.isUpdate,
                           "method":"post",
-                          "payload":{ email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html  }
+                          "payload":{ email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html, is_mail  }
                     };
       this.axios.callAxios(params,function(result){
         self.props.history.push("/listing");
@@ -295,14 +310,14 @@ class Create extends Component {
   }
 
   render() {
-    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender } = this.state;
+    const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, is_mail } = this.state;
 
     let validation = this.submitted ?                         // if the form has been submitted at least once
                       this.validator.validate(this.state) :   // then check validity every time we render
                         this.state.validation // otherwise just use what's in state
     
     return (
-      <div className="row mb-4">
+      <div className="row mb-5">
         <div className="col-md-4">
           <div className="panel panel-default">            
             <div className="panel-body">            
@@ -405,6 +420,13 @@ class Create extends Component {
               <label for="publisher">User Picture:</label>
               <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
               <span className="help-block">{validation.user_image.message}</span>
+            </div>            
+          </div>
+          <div className="form-group">
+            <div>
+              <label for="publisher">For mailing (Select 'Yes'):</label>
+              <Dropdown options={yesNoOptions} name="is_mail" onChange={this.onYesNoSelect} value={is_mail} placeholder="Select" />
+              <span className="help-block">{validation.supervisor.message}</span>
             </div>            
           </div>
           <button onClick={this.onSubmit} className="btn btn-success btn-block">Submit</button>                

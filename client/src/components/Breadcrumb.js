@@ -7,12 +7,14 @@ class BreadCrumb extends Component {
   }
   
   render() {
+    let path = window.location.pathname.split("/")[1].toUpperCase();
+
     return (  	  
       <ol className="breadcrumb">
         <li className="breadcrumb-item">
           <a href="/listing">DASHBOARD</a>
         </li>
-        <li className="breadcrumb-item active">{window.location.pathname.replace('/', '').toUpperCase()}</li>
+        <li className="breadcrumb-item active">{path}</li>
       </ol>
     );
   }
