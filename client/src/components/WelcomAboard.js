@@ -98,6 +98,9 @@ class WelcomAboard extends Component {
 							                </p>
 							            </div>
 							            </td>
+										<td width="8%">
+											&nbsp;
+										</td>
 									</tr>
 								</table>
 				        	</div>

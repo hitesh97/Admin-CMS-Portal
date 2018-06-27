@@ -53,7 +53,7 @@ ReactDOM.render(
         <IndexRoute component={RequireAuth(EmployeeListing)} />
         <Route path="signin" component={Signin} />
         <Route path="signout" component={RequireAuth(Signout)} />
-        <Route path="signup" component={Signup} />
+        <Route path="registeradmin" component={Signup} />
         <Route path="protected_content" component={RequireAuth(ProtectedContent)} />
         <Route path="admin_area" component={RequireAdmin(AdminArea)} />
         <Route path="admin_activation" component={RequireAdmin(AdminActivation)} />
