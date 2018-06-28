@@ -229,12 +229,12 @@ class Create extends Component {
   }
 
   onSubmit = (e) => {
-    e.preventDefault();
-    document.getElementById('userImg').remove();
+    e.preventDefault();    
     const validation = this.validator.validate(this.state);    
     this.submitted = true;
     if(validation.isValid){
       var self = this;
+      document.getElementById('userImg').remove();
       this.state.mail_html = document.getElementById('welcomeAbroadBox').outerHTML;
       const { email, first_name, last_name, team, location, designation, supervisor, previous_companies, degree, degree_stream, degree_colledge, created_date,updated_date, user_image, gender, mail_html, is_mail} = this.state;
       const params = {   "url":ROOT_URL+'employee'+this.isUpdate,
