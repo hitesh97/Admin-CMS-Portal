@@ -427,7 +427,6 @@ class Create extends Component {
             <div>
               <label for="publisher">For mailing (Select 'Yes'):</label>
               <Dropdown options={yesNoOptions} name="is_mail" onChange={this.onYesNoSelect} value={is_mail} placeholder="Select" />
-              <span className="help-block">{validation.supervisor.message}</span>
             </div>            
           </div>
           <button onClick={this.onSubmit} className="btn btn-success btn-block">Submit</button>                
