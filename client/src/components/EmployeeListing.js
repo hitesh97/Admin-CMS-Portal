@@ -6,6 +6,10 @@ import moment from 'moment';
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faTrash, faUserEdit, faList, faCog, faPlus, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import {
   ROOT_URL
 } from './../actions/types';
@@ -33,14 +37,28 @@ class EmployeeListing extends Component {
   }
   
   delete(id){
-    var self = this;  
+    var self = this;
     const params = {   "url":ROOT_URL+'employee/'+id,
                           "method":"delete",
                           "payload":{}
                     };
-    this.axios.callAxios(params,function(result){
-      self.props.history.push("/listing");        
-    });  
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='custom-ui'>
+            <h1>Are you sure?</h1>
+            <p>You want to delete this record?</p>
+            <button onClick={onClose}>No</button>
+            <button onClick={() => {
+               self.axios.callAxios(params,function(result){
+                  //self.props.history.push("/listing")
+                  onClose();       
+                })  
+            }}>Yes, Delete it!</button>
+          </div>
+        )
+      }
+    })                   
   }
 
   render() {    
@@ -74,7 +92,7 @@ class EmployeeListing extends Component {
                   accessor: "actions",
                   className:"text-center",
                   filterable: false,
-                  Cell: row => <button onClick={this.delete.bind(this, row.original._id)} className="btn btn-success">Delete</button> // Custom cell components!
+                  Cell: row => <div className="container"><Link to={`/edit/${row.original._id}`} className="text-primary"><FontAwesomeIcon icon={faUserEdit} size="lg" /></Link><a onClick={this.delete.bind(this, row.original._id)} className="text-danger"><FontAwesomeIcon icon={faTrash} size="lg" /></a></div> // Custom cell components!
                 }
           ]}
           defaultPageSize={10}
