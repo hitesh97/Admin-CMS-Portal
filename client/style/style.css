@@ -1015,6 +1015,7 @@ a:hover, a:active, a:focus {
   float: left;
   position: relative;
   width: 100%;
+  text-align: right;
 }
 .has-error input, .has-error .Dropdown-control, .has-error textarea {
   border-color: red;
