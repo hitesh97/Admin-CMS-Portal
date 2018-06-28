@@ -58,7 +58,7 @@ export function signupUser({ email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/protected_content');
+        browserHistory.push('/listing');
       })
       .catch(response => dispatch(authError(response.data.error)));
   }

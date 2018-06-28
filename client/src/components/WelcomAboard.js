@@ -63,9 +63,9 @@ class WelcomAboard extends Component {
 				<td style={{backgroundColor: '#F2F2F2'}}> 
 			        <div className="panel panel-default">
 					 	<div className="container custom-container">
-					        <div id="wimg">
-					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="welcomeImage" alt=" " onError={(e)=>{e.target.style.display = "none"}} />
-					            <img src={"cid:"+this.props.data.email} alt=" " onError={(e)=>{e.target.style.display = "none"}} />
+					        <div id="wimg">								
+					            <img id="userImg" src={this.props.data.user_image ? this.props.data.user_image : BASE_URL+"/images/welcomeImage.png"} className="welcomeImage" alt=" " onError={(e)=>{e.target.style.display = "none"}}  />
+					            <img className="welcomeImage" src={"cid:"+this.props.data.email} alt=" " onError={(e)=>{e.target.style.display = "none"}} />
 					        </div>
 					        <div className="custom-margin">
 						        <table cellspacing="0" cellpadding="0" border="0">
@@ -98,6 +98,9 @@ class WelcomAboard extends Component {
 							                </p>
 							            </div>
 							            </td>
+										<td width="8%">
+											&nbsp;
+										</td>
 									</tr>
 								</table>
 				        	</div>

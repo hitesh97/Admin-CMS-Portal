@@ -27,12 +27,6 @@ class EmailSetting extends Component {
         message: 'Please provide from email address.'
       },
       { 
-        field: 'from',
-        method: 'isEmail',
-        validWhen: true,
-        message: 'That is not a valid email.'
-      },
-      { 
         field: 'to',
         method: 'isEmpty',
         validWhen: false,
