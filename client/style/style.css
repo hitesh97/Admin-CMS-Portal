@@ -1025,6 +1025,7 @@ a:hover, a:active, a:focus {
 }
 #welcomeAbroadBox {
 	font-family: "Tahoma",sans-serif;
+    position: fixed;
 }
 .form-group label {
   font-weight: 500;
@@ -1057,4 +1058,7 @@ a:hover, a:active, a:focus {
 .text-danger{
   cursor: pointer;
   margin-left: 10px;
+}
+.form-control {
+    font-size: 13px;
 }
