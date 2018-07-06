@@ -95,12 +95,6 @@ class Create extends Component {
         message: 'Please provide supervisor.'
       },
       { 
-        field: 'previous_companies',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'Please provide previous companies.'
-      },
-      { 
         field: 'degree',
         method: 'isEmpty',
         validWhen: false,
@@ -116,7 +110,7 @@ class Create extends Component {
         field: 'degree_colledge',
         method: 'isEmpty',
         validWhen: false,
-        message: 'Please provide degree colledge.'
+        message: 'Please provide degree College.'
       },
       { 
         field: 'created_date',
@@ -155,7 +149,6 @@ class Create extends Component {
     genderOps3:"",
     is_mail: "No"
     };
-    console.log(moment(),"moment()");
     this.submitted = false;
     
   };
@@ -257,14 +250,14 @@ class Create extends Component {
       context.save();
       //draw a circle
       context.beginPath();
-      context.arc(520, 140, 100, 0, Math.PI * 2, true);
+      context.arc(530, 140, 70, 0, Math.PI * 2, true);
       context.fillStyle = "#ffffff";
       context.fill();
       context.strokeStyle="#ffffff";
       context.stroke();
       //draw a image
       context.globalCompositeOperation='source-atop';
-      context.drawImage(userImg, 442, 85);
+      context.drawImage(userImg, 457, 100);
       //context.globalCompositeOperation='destination-over';
       context.restore();
       
@@ -282,8 +275,8 @@ class Create extends Component {
 
     img.onload = function () {
       myCan.id = "myTempCanvas";
-      myCan.width = 160;
-      myCan.height = 160;
+      myCan.width = 140;
+      myCan.height = 140;
 
       if (myCan.getContext) {
         var cntxt = myCan.getContext("2d");
@@ -375,10 +368,9 @@ class Create extends Component {
             </div>                  
           </div>
   			  <div className="form-group">
-            <div className={validation.previous_companies.isInvalid && 'has-error'}>
+            <div>
                 <label for="previous_companies">Previous Companies:</label>
                 <textArea className="form-control" name="previous_companies" onChange={this.onChange} placeholder="Previous Companies" cols="80" rows="3" value={previous_companies}></textArea>
-                <span className="help-block">{validation.previous_companies.message}</span>
             </div>              
           </div>
   			  <div className="form-group">
@@ -397,8 +389,8 @@ class Create extends Component {
           </div>
   			  <div className="form-group">
             <div className={validation.degree_colledge.isInvalid && 'has-error'}>
-                  <label for="degree_colledge">Degree Colledge:</label>
-                  <input className="form-control" name="degree_colledge" onChange={this.onChange} placeholder="Degree Colledge" value={degree_colledge} />
+                  <label for="degree_colledge">Degree College:</label>
+                  <input className="form-control" name="degree_colledge" onChange={this.onChange} placeholder="Degree College" value={degree_colledge} />
                 <span className="help-block">{validation.degree_colledge.message}</span>
             </div>                  
           </div>	

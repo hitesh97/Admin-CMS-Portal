@@ -1,16 +1,16 @@
 {
   "name": "",
   "version": "1.0.0",
-  "description": "authkeeper react/redux client",
+  "description": "iMailer",
   "main": "index.js",
-  "repository": "https://github.com/psyglyphik/authkeeper.git",
+  "repository": "https://github.com/csinghal/Admin-CMS-Portal.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "Adam EL-Gizawy",
-  "license": "ISC",
+  "author": "Chetan Singhal",
+  "license": "MIT",
   "devDependencies": {
     "@types/history": "^3.2.0",
     "@types/react": "^16.0.40",

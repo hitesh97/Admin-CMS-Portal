@@ -55,7 +55,7 @@ router.post('/', function(req, res, next) {
       var mOptions = {
           from: mailOptions.from, // sender address
           to: mailOptions.to, // list of receivers
-          subject: mailOptions.subject_text+' '+full_name, // Subject line
+          subject: mailOptions.subject_text+' '+full_name+'!', // Subject line
           html: mail_html, // html body
           attachments: attachments
       };
@@ -85,7 +85,7 @@ router.post('/:id', function(req, res, next) {
       var mOptions = {
           from: mailOptions.from, // sender address
           to: mailOptions.to, // list of receivers
-          subject: mailOptions.subject_text+' '+full_name, // Subject line
+          subject: mailOptions.subject_text+' '+full_name+'!', // Subject line
           html: mail_html, // html body
           attachments: attachments
       };
