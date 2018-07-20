@@ -10,6 +10,7 @@ import {
 const css = `
 			body {
 				font-family: Calibri, sans-serif;
+				color: #3b3838;
 			}
     		#welcomeAbroadBox .custom-margin {
 	            padding-bottom: 50px;
