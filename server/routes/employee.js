@@ -69,7 +69,6 @@ router.post('/', function(req, res, next) {
 /* UPDATE BOOK */
 router.post('/:id', function(req, res, next) {
   var reqBody = qs.parse(req.body, {depth: 900000, arrayLimit: 1000000});
-  console.log('mailOptions = ', mailOptions);
   var full_name = reqBody.first_name+" "+reqBody.last_name;
   var mail_html = reqBody.mail_html; 
   Employee.findByIdAndUpdate(req.params.id, req.body, function (err, post) {

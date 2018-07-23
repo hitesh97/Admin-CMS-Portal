@@ -250,14 +250,15 @@ class Create extends Component {
       context.save();
       //draw a circle
       context.beginPath();
-      context.arc(530, 140, 70, 0, Math.PI * 2, true);
+      context.arc(530, 140, 95, 0, Math.PI * 2, true);
       context.fillStyle = "#ffffff";
       context.fill();
       context.strokeStyle="#ffffff";
       context.stroke();
       //draw a image
-      context.globalCompositeOperation='source-atop';
-      context.drawImage(userImg, 457, 100);
+      //context.globalCompositeOperation='source-atop';
+      context.clip();
+      context.drawImage(userImg, 443, 60);
       //context.globalCompositeOperation='destination-over';
       context.restore();
       
@@ -275,8 +276,8 @@ class Create extends Component {
 
     img.onload = function () {
       myCan.id = "myTempCanvas";
-      myCan.width = 140;
-      myCan.height = 140;
+      myCan.width = 175;
+      myCan.height = 175;
 
       if (myCan.getContext) {
         var cntxt = myCan.getContext("2d");
