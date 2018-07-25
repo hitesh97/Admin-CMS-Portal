@@ -50,6 +50,7 @@
     "prop-type": "0.0.1",
     "prop-types": "^15.6.1",
     "react": "^0.14.3",
+	"react-avatar-editor": "^11.0.4",	
     "react-bootstrap": "^0.32.1",
     "react-calendar": "^2.14.0",
     "react-components-form": "^3.3.1",

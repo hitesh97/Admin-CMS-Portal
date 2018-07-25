@@ -14,6 +14,7 @@ import {
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import watermark from 'watermarkjs';
+import AvatarEditor from 'react-avatar-editor';
 
 const locationOptions = [
   { value: 'Indore', label: 'Indore' },
@@ -141,6 +142,8 @@ class Create extends Component {
 	  degree_colledge: "",
 	  created_date: moment().format("LL"),
     updated_date: "" ,    
+    thumb_img: "",
+    thumb_scale: 1.2,
     user_image: "",
     mail_html: "",
     validation: this.validator.valid(),
@@ -250,16 +253,11 @@ class Create extends Component {
       context.save();
       //draw a circle
       context.beginPath();
-      context.arc(530, 140, 95, 0, Math.PI * 2, true);
-      context.fillStyle = "#ffffff";
-      context.fill();
-      context.strokeStyle="#ffffff";
-      context.stroke();
+      context.arc(528, 150, 86, 0, Math.PI * 2, false);  
       //draw a image
       //context.globalCompositeOperation='source-atop';
       context.clip();
       context.drawImage(userImg, 443, 60);
-      //context.globalCompositeOperation='destination-over';
       context.restore();
       
       return headerImg;
@@ -273,7 +271,7 @@ class Create extends Component {
     var myCan = document.createElement('canvas');
     var img = new Image();
     img.src = e.target.result;
-
+     self.state.thumb_img = e.target.result;
     img.onload = function () {
       myCan.id = "myTempCanvas";
       myCan.width = 175;
@@ -286,7 +284,7 @@ class Create extends Component {
 
         if (dataURL != null && dataURL != undefined) {
             var nImg = document.createElement('img');
-            nImg.src = dataURL;
+            nImg.src = dataURL;           
             self.mergeImages(nImg);                    
         }
         else
@@ -302,6 +300,67 @@ class Create extends Component {
     reader.onload = function (e) { self.getThumbnail(e, self) };
     let file = e.target.files[0]; 
     reader.readAsDataURL(file);
+  }
+
+  onClickSave = () => {
+    if (this.editor) {
+      // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
+      // drawn on another canvas, or added to the DOM.
+      const canvas = this.editor.getImage()
+
+      // If you want the image resized to the canvas size (also a HTMLCanvasElement)
+      const canvasScaled = this.editor.getImageScaledToCanvas()
+    }
+  }
+
+  setEditorRef = (editor) => this.editor = editor
+
+  handleSave = data => {
+    let self = this;
+    const img = this.editor.getImageScaledToCanvas().toDataURL();
+    self.mergeImages(img);     
+  }
+
+  handleScale = e => {
+    const thumb_scale = parseFloat(e.target.value);
+    this.setState({ thumb_scale });
+  }
+
+  getPreviewThumb() {
+    let thumb = "";
+
+    if(this.state.thumb_img) {
+      thumb = (
+        <div>
+          <div>
+            <AvatarEditor
+              ref={this.setEditorRef}
+              image={this.state.thumb_img}
+              width={175}
+              height={175}
+              borderRadius={100}
+              border={20}
+              scale={this.state.thumb_scale}
+            />
+          </div>
+          <div>
+            <label>Zoom:</label>
+            <input
+              name="thumb_scale"
+              type="range"
+              onChange={this.handleScale}
+              min="0.1"
+              max="2"
+              step="0.01"
+              defaultValue="1"
+            />
+          </div>
+          <button type="button" onClick={this.handleSave} className="btn btn-success btn-block col-md-6">Preview</button>
+        </div>
+      );
+    }
+    
+    return thumb;    
   }
 
   render() {
@@ -415,6 +474,9 @@ class Create extends Component {
               <ImageUpload onChange={(e)=>this._handleImageChange(e)}/>
               <span className="help-block">{validation.user_image.message}</span>
             </div>            
+          </div>
+          <div className="form-group">
+            {this.getPreviewThumb()}
           </div>
           <div className="form-group">
             <div>
