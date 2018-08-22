@@ -7,6 +7,7 @@ const morgan = require('morgan');  //HTTP request logger middleware
 const app = express();
 const router = require('./routes/router');
 const employee = require('./routes/employee');
+const bulkHiring = require('./routes/bulkHiring');
 const commonSetting = require('./routes/commonSetting');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({
 	parameterLimit: 9000000
 }));
 app.use('/employee', employee);
+app.use('/bulkHiring', bulkHiring);
 app.use('/commonSetting', commonSetting);
 
 // Application Routes

@@ -8,6 +8,8 @@ class BreadCrumb extends Component {
   
   render() {
     let path = window.location.pathname.split("/")[1].toUpperCase();
+    path = path.replace("-", " ");
+    path = path.replace("_", " ");
 
     return (  	  
       <ol className="breadcrumb">

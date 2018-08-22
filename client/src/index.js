@@ -24,6 +24,8 @@ import jwt_decode from 'jwt-decode';
 import Create from './components/Create';
 import EmployeeListing from './components/EmployeeListing';
 import EmailSetting from './components/EmailSetting';
+import BulkHiringCreate from './components/BulkHiringCreate';
+import BulkHiringListing from './components/BulkHiringListing';
 
 
 
@@ -61,6 +63,10 @@ ReactDOM.render(
       	<Route path='create' components={RequireAuth(Create)} />  
         <Route path='email_setting' components={RequireAuth(EmailSetting)} /> 
       	<Route path='listing' components={RequireAuth(EmployeeListing)} />
+
+        <Route path='bulk-create' components={RequireAuth(BulkHiringCreate)} />
+        <Route path='bulk/:id' components={RequireAuth(BulkHiringCreate)} />
+        <Route path='bulk-listing' components={RequireAuth(BulkHiringListing)} />
       </Route>      
     </Router>
   </Provider>

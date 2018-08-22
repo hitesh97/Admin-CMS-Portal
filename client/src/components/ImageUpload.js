@@ -26,7 +26,9 @@ export default class ImageUpload extends React.Component {
       <div className="previewComponent">
         <input className="fileInput" 
           type="file" 
+          id="user_image"
           name="user_image"
+          multiple={this.props.multiple ? this.props.multiple : false}
           onChange={(e)=>this.props.onChange(e)} />    
         <div className="imgPreview">
           {$imagePreview}

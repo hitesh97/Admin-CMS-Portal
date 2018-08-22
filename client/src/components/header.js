@@ -17,6 +17,12 @@ class Header extends Component {
         <li className="nav-item" key={3}>
           <Link className="nav-link" to="/create"><FontAwesomeIcon icon={faPlus} size="1x" /> Add Employee</Link>
         </li>,
+        <li className="nav-item">
+          <Link className="nav-link" to="/bulk-listing"><FontAwesomeIcon icon={faList} size="1x" /> Bulk Listing</Link>
+        </li>,
+        <li className="nav-item">
+          <Link className="nav-link" to="/bulk-create"><FontAwesomeIcon icon={faPlus} size="1x" /> Add Bulk Hiring</Link>
+        </li>,
         <li className="nav-item" key={6}>
           <Link className="nav-link" to="/signout"><FontAwesomeIcon icon={faSignOutAlt} size="1x" /> Logout</Link>
         </li>
