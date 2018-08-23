@@ -109,7 +109,7 @@ class BulkHiringCreate extends Component {
       var self = this;
       Array.from(document.getElementsByClassName("desktop-user-imgs"))
       .forEach(element => element.remove());
-
+      document.getElementById('bulkAbroadBox').setAttribute("align", 'center');
       this.state.mail_html = document.getElementById('bulkAbroadBox').outerHTML;
       const {name, user_image, mail_html, is_mail} = this.state;
       const params = {   "url":ROOT_URL+'bulkHiring/bulkCreate'+this.isUpdate,
