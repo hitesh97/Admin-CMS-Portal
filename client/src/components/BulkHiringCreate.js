@@ -144,8 +144,8 @@ class BulkHiringCreate extends Component {
      self.state.thumb_img = e.target.result;
     img.onload = function () {
       myCan.id = "myTempCanvas";
-      myCan.width = 120;
-      myCan.height = 120;
+      myCan.width = 160;
+      myCan.height = 160;
 
       if (myCan.getContext) {
         var cntxt = myCan.getContext("2d");        
@@ -153,7 +153,7 @@ class BulkHiringCreate extends Component {
         cntxt.globalAlpha = 1;
         cntxt.fillStyle = '#000';
         cntxt.font = 'bold 12px Calibri';
-        cntxt.fillText(file.name.split(".")[0], 15, myCan.height-5);
+        cntxt.fillText(file.name.split(".")[0], 25, myCan.height-5);
         var dataURL = myCan.toDataURL(); 
 
         if (dataURL != null && dataURL != undefined) {
