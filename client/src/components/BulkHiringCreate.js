@@ -153,7 +153,8 @@ class BulkHiringCreate extends Component {
         cntxt.globalAlpha = 1;
         cntxt.fillStyle = '#000';
         cntxt.font = 'bold 12px Calibri';
-        cntxt.fillText(file.name.split(".")[0], 0, myCan.height-5);
+        cntxt.textAlign='center';
+        cntxt.fillText(file.name.split(".")[0], (myCan.width-30)/2, myCan.height-5);
         var dataURL = myCan.toDataURL(); 
 
         if (dataURL != null && dataURL != undefined) {
