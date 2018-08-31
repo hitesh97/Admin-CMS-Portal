@@ -85,7 +85,8 @@ class BulkAboard extends Component {
 					 	<div className="container custom-container">
 					        <div id="wimg">								
 					            <img id="userImg" src={BASE_URL+"/images/header.png"} className="welcomeImage" alt=" " onError={(e)=>{e.target.style.display = "none"}}  />												            
-					        </div>
+					            <img className="welcomeImage" src={"cid:bulk-header-img"} alt=" " onError={(e)=>{e.target.style.display = "none"}} />
+							</div>
 					        <div className="custom-margin">
 						        <table cellspacing="0" cellpadding="0" border="0">
 									<tr>

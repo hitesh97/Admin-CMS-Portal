@@ -47,7 +47,10 @@ router.post('/bulkCreate', function(req, res, next) {
     if (err) return next(err);
 
     if(reqBody.is_mail === "Yes") {
-      var attachments = [];
+      var attachments = [{
+            path: "http://vizualy.impetus.co.in:8090/images/header.png", 
+            cid: "bulk-header-img"
+          }];
 
       if(reqBody.user_image.length > 0 ) {
         for(var i=0; i<reqBody.user_image.length;i++) {
@@ -81,7 +84,10 @@ router.post('/bulkCreate/:id', function(req, res, next) {
     if (err) return next(err);
 
     if(reqBody.is_mail === "Yes") {
-      var attachments = [];
+      var attachments = [{
+            path: "http://vizualy.impetus.co.in:8090/images/header.png", 
+            cid: "bulk-header-img"
+          }];
 
       if(reqBody.user_image.length > 0 ) {
         for(var i=0; i<reqBody.user_image.length;i++) {
