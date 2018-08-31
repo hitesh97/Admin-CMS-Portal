@@ -1061,3 +1061,23 @@ a:hover, a:active, a:focus {
 .form-control {
     font-size: 13px;
 }
+.bulk-imgs {
+    position: relative;
+    display: inline-block;
+}
+.bulk-imgs {
+    position: relative;
+    display: inline-block;
+}
+.bulk-imgs svg {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    display: none;
+}
+.bulk-imgs:hover {
+    cursor: pointer;
+}
+.bulk-imgs:hover svg {    
+    display: block;
+}

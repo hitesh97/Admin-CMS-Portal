@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link, browserHistory } from 'react-router';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faTrash, faUserEdit, faList, faCog, faPlus, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import {
   BASE_URL,
   ROOT_URL
@@ -63,7 +65,8 @@ class BulkAboard extends Component {
 	  var self = this;
 	  var usersImg = this.props.data.user_image;
 	  for(let i=0; i<usersImg.length; i++) {
-		  images.push(<span className="bulk-imgs" align="left" onClick={self.props.removeImg.bind(this, i)}>		
+		  images.push(<span className="bulk-imgs" align="left" onClick={self.props.removeImg.bind(this, i)}>
+		  		<FontAwesomeIcon icon={faTrash} size="lg" />		
 				<img src={usersImg[i]} className="desktop-user-imgs" alt=" " onError={(e)=>{e.target.style.display = "none"}} />
 				<img src={"cid:bulk-images-"+i} alt=" " onError={(e)=>{e.target.style.display = "none"}} />				
 		 </span>)
@@ -91,7 +94,8 @@ class BulkAboard extends Component {
 										</td>
 										<td style={{backgroundColor: '#F2F2F2'}}>							            
 							            <div>
-							            	<p>Good day,</p>
+											
+							            	<p><br/>Good day,</p>
 							            </div>
 							            <div>
 							                <p>It is my pleasure to introduce {this.props.data.user_image ? this.props.data.user_image.length: 0} dynamic graduates who have joined us, to carve their path of success.</p>
