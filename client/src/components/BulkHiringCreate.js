@@ -158,8 +158,8 @@ class BulkHiringCreate extends Component {
     //self.state.thumb_img = imgSrc;
     img.onload = function () {
       myCan.id = "myTempCanvas";
-      myCan.width = 160;
-      myCan.height = 160;
+      myCan.width = 135;
+      myCan.height = 135;
 
       if (myCan.getContext) {
         var cntxt = myCan.getContext("2d");        
