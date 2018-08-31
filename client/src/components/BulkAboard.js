@@ -60,9 +60,10 @@ class BulkAboard extends Component {
 
   getBulkImages() {
 	  var images = [];
+	  var self = this;
 	  var usersImg = this.props.data.user_image;
 	  for(let i=0; i<usersImg.length; i++) {
-		  images.push(<span className="bulk-imgs" align="left">		
+		  images.push(<span className="bulk-imgs" align="left" onClick={self.props.removeImg.bind(this, i)}>		
 				<img src={usersImg[i]} className="desktop-user-imgs" alt=" " onError={(e)=>{e.target.style.display = "none"}} />
 				<img src={"cid:bulk-images-"+i} alt=" " onError={(e)=>{e.target.style.display = "none"}} />				
 		 </span>)

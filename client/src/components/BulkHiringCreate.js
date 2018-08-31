@@ -23,6 +23,8 @@ class BulkHiringCreate extends Component {
 
   constructor(props) {
     super(props);
+
+    this.removeImg = this.removeImg.bind(this);
     this._eid = this.props.params.id;
     this.isUpdate = (this._eid ? "/"+this._eid : "");
     this.axios = new AxiosBuilder({});
@@ -44,8 +46,11 @@ class BulkHiringCreate extends Component {
     
     this.state = {
     name: "",  
+    selected_img: "",
+    thumb_img_name: "",
     thumb_img: "",
     thumb_scale: 1.2,
+    user_image_name: [],
     user_image: [],
     mail_html: "",
     validation: this.validator.valid(),
@@ -131,7 +136,13 @@ class BulkHiringCreate extends Component {
       return userImg;
     })
     .then(url => {
-      this.state.user_image.push(url);
+      let selectedIdx = this.state.user_image.indexOf(this.state.selected_img);
+      if(selectedIdx > -1 ) {
+        this.state.user_image[selectedIdx] = url;
+      }
+      else {
+        this.state.user_image.push(url);
+      }     
       
       this.setState({});
     });
@@ -140,8 +151,11 @@ class BulkHiringCreate extends Component {
   getThumbnail(e, file, self) {
     var myCan = document.createElement('canvas');
     var img = new Image();
-    img.src = e.target.result;
-     self.state.thumb_img = e.target.result;
+    var userName =  (file && file.name) ? file.name.split(".")[0] : file;
+    var imgSrc = (e && e.target) ? e.target.result : e;
+
+    img.src = imgSrc;
+    //self.state.thumb_img = imgSrc;
     img.onload = function () {
       myCan.id = "myTempCanvas";
       myCan.width = 160;
@@ -154,8 +168,10 @@ class BulkHiringCreate extends Component {
         cntxt.fillStyle = '#000';
         cntxt.font = 'bold 12px Calibri';
         cntxt.textAlign='center';
-        cntxt.fillText(file.name.split(".")[0], (myCan.width-30)/2, myCan.height-5);
+        
+        cntxt.fillText(userName, (myCan.width-30)/2, myCan.height-5);
         var dataURL = myCan.toDataURL(); 
+        self.state.user_image_name.push({label: userName, value: imgSrc});
 
         if (dataURL != null && dataURL != undefined) {
             var nImg = document.createElement('img');
@@ -184,6 +200,12 @@ class BulkHiringCreate extends Component {
     
   }
 
+  removeImg(index) {
+    this.state.user_image.splice(index, 1);
+    this.state.user_image_name.splice(index, 1);    
+    this.setState({});
+  }
+
   onClickSave = () => {
     if (this.editor) {
       // This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
@@ -197,10 +219,10 @@ class BulkHiringCreate extends Component {
 
   setEditorRef = (editor) => this.editor = editor
 
-  handleSave = data => {
+  handleSave = (data) => {
     let self = this;
-    const img = this.editor.getImageScaledToCanvas().toDataURL();
-    self.mergeImages(img);     
+    const img = this.editor.getImageScaledToCanvas().toDataURL(); 
+    self.getThumbnail(img, self.state.thumb_img_name, self);  
   }
 
   handleScale = e => {
@@ -218,8 +240,8 @@ class BulkHiringCreate extends Component {
             <AvatarEditor
               ref={this.setEditorRef}
               image={this.state.thumb_img}
-              width={120}
-              height={120}
+              width={130}
+              height={130}
               borderRadius={0}
               border={20}
               scale={this.state.thumb_scale}
@@ -245,8 +267,12 @@ class BulkHiringCreate extends Component {
     return thumb;    
   }
 
+  onThumbChange= e => {
+    this.setState({ thumb_img_name: e.label , thumb_img: e.value, selected_img: e.value });
+  }
+
   render() {
-    const { name, user_image, is_mail } = this.state;
+    const { name, user_image_name, user_image, is_mail } = this.state;
     let validation = this.submitted ?                         // if the form has been submitted at least once
                       this.validator.validate(this.state) :   // then check validity every time we render
                         this.state.validation // otherwise just use what's in state
@@ -273,6 +299,15 @@ class BulkHiringCreate extends Component {
           </div>
           <div className="form-group">
             <div>
+              <label for="publisher">All User Image:</label>
+              <Dropdown options={user_image_name} name="user_image_name" onChange={this.onThumbChange} placeholder="Select User Image" />
+            </div>            
+          </div>
+          <div className="form-group">
+            {this.getPreviewThumb()}
+          </div>
+          <div className="form-group">
+            <div>
               <label for="publisher">For mailing (Select 'Yes'):</label>
               <Dropdown options={yesNoOptions} name="is_mail" onChange={this.onYesNoSelect} value={is_mail} placeholder="Select" />
             </div>            
@@ -283,7 +318,7 @@ class BulkHiringCreate extends Component {
           </div>				
         </div>
       	<div className="col-md-8">			
-      	  <BulkAboard data={this.state}/>
+      	  <BulkAboard data={this.state} removeImg={this.removeImg}/>
       	</div>
   	  </div>			
     );
