@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   Employee.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
-  });
+  }).sort({'created_date': 'desc'});
 });
 
 /* get common setting by type */
